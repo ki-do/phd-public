@@ -1,0 +1,5 @@
+forte_add_sourcefile_hcpp(IAS_Skill IAS_Skill_Full IAS_Skill_MUX IAS_Skill_DEMUX IAS_Skill_StateModel)
+forte_add_sourcefile_hcpp(DepotSkill HandlingSkill Station1Skill)#GripperSkill RobotSkill TurntableSkill)
+#forte_add_sourcefile_hcpp(SetParams1Word SetParams1Word_DEMUX orchestratorFB)
+
+#forte_add_sourcefile_hcpp(IAS_SKILL_DEMUX_GEN IAS_SKILL_MUX_GEN SETPARAMS1WORD_DEMUX_GEN SETPARAMS1WORD_MUX_GEN)

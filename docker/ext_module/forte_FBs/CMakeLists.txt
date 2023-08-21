@@ -1,0 +1,14 @@
+forte_add_module(EXAMPLE_FBs "PhD Illustrative Example FBs")
+
+forte_add_subdirectory(hierControl)
+forte_add_subdirectory(skills)
+forte_add_sourcefile_hcpp(IW_Emulated QW_Emulated IX_Emulated QX_Emulated Log LOG_X LOG_W CompareInts)
+forte_add_sourcefile_hcpp(String2LocalizedText)
+
+#add 7 opcuanamespaces
+forte_opcua_add_nodeset_without_generated(fordiacNamespace2 ${CMAKE_CURRENT_SOURCE_DIR}/nodespaceTest)
+forte_opcua_add_nodeset_without_generated(fordiacNamespace3 ${CMAKE_CURRENT_SOURCE_DIR}/nodespaceTest)
+forte_opcua_add_nodeset_without_generated(fordiacNamespace4 ${CMAKE_CURRENT_SOURCE_DIR}/nodespaceTest)
+forte_opcua_add_nodeset_without_generated(fordiacNamespace5 ${CMAKE_CURRENT_SOURCE_DIR}/nodespaceTest)
+forte_opcua_add_nodeset_without_generated(fordiacNamespace6 ${CMAKE_CURRENT_SOURCE_DIR}/nodespaceTest)
+forte_opcua_add_nodeset_without_generated(fordiacNamespace7 ${CMAKE_CURRENT_SOURCE_DIR}/nodespaceTest)

@@ -1,0 +1,2 @@
+forte_add_sourcefile_hcpp(ADepot AGripper AGRIPPER_MUX AGRIPPER_DEMUX AHandling ARobot AROBOT_MUX AROBOT_DEMUX AStorage ASTORAGE_MUX ASTORAGE_DEMUX ATurntable ATURNTABLE_MUX ATURNTABLE_DEMUX)
+forte_add_sourcefile_hcpp(DepotControl GripperControl HandlingControl RobotControl Station1Control StorageControl TurntableControl)
