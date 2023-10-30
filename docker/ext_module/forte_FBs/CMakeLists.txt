@@ -1,4 +1,4 @@
-forte_add_module(EXAMPLE_FBs "PhD Illustrative Example FBs")
+forte_add_module(EXAMPLE_FBs OFF "PhD Illustrative Example FBs")
 
 forte_add_subdirectory(hierControl)
 forte_add_subdirectory(skills)

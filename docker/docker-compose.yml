@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  forte_phd_1:
+    image: forte
+    ports:
+      - 61499:61499
+  
+  forte_phd_2:
+    image: forte
+    ports:
+      - 61500:61500
+  
+  forte_phd_3:
+    image: forte
+    ports:
+      - 61501:61501
+  
+  forte_phd_4:
+    image: forte
+    ports:
+      - 61502:61502
+  
+  forte_phd_5:
+    image: forte
+    ports:
+      - 61504:61504
+  
+  forte_phd_6:
+    image: forte
+    ports:
+      - 61515:61515
+      - 4840:4840

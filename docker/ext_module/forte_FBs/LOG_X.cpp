@@ -1,12 +1,12 @@
 /*************************************************************************
  *** FORTE Library Element
  ***
- *** This file was generated using the 4DIAC FORTE Export Filter V1.0.x!
+ *** This file was generated using the 4DIAC FORTE Export Filter V1.0.x NG!
  ***
  *** Name: LOG_X
  *** Description: Composite FB wrapping other FBs
- *** Version: 
- ***     1.0: 2021-08-05/dorofeev - null - 
+ *** Version:
+***     1.0: 2021-08-05/dorofeev -  - 
  *************************************************************************/
 
 #include "LOG_X.h"
@@ -14,26 +14,29 @@
 #include "LOG_X_gen.cpp"
 #endif
 
+
 DEFINE_FIRMWARE_FB(FORTE_LOG_X, g_nStringIdLOG_X)
 
 const CStringDictionary::TStringId FORTE_LOG_X::scm_anDataInputNames[] = {g_nStringIdQI, g_nStringIdPARAMS, g_nStringIdPORT_NAME};
 
 const CStringDictionary::TStringId FORTE_LOG_X::scm_anDataInputTypeIds[] = {g_nStringIdBOOL, g_nStringIdSTRING, g_nStringIdWSTRING};
 
-const TForteInt16 FORTE_LOG_X::scm_anEIWithIndexes[] = {0};
+
 const TDataIOID FORTE_LOG_X::scm_anEIWith[] = {2, 1, 0, 255};
+const TForteInt16 FORTE_LOG_X::scm_anEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_LOG_X::scm_anEventInputNames[] = {g_nStringIdINIT};
 
-const TForteInt16 FORTE_LOG_X::scm_anEOWithIndexes[] = {-1, -1};
+const TForteInt16 FORTE_LOG_X::scm_anEOWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_LOG_X::scm_anEventOutputNames[] = {g_nStringIdINITO};
 
-const SFBInterfaceSpec FORTE_LOG_X::scm_stFBInterfaceSpec = {
-  1,  scm_anEventInputNames,  scm_anEIWith,  scm_anEIWithIndexes,
-  1,  scm_anEventOutputNames,  0, 0,  3,  scm_anDataInputNames, scm_anDataInputTypeIds,
-  0,  0, 0,
-  0, 0
-};
 
+const SFBInterfaceSpec FORTE_LOG_X::scm_stFBInterfaceSpec = {
+  1, scm_anEventInputNames, scm_anEIWith, scm_anEIWithIndexes,
+  1, scm_anEventOutputNames, nullptr, scm_anEOWithIndexes,
+  3, scm_anDataInputNames, scm_anDataInputTypeIds,
+  0, nullptr, nullptr,
+  0, nullptr
+};
 
 const SCFB_FBInstanceData FORTE_LOG_X::scm_astInternalFBs[] = {
   {g_nStringIdF_STRING_TO_WSTRING, g_nStringIdF_STRING_TO_WSTRING},
@@ -41,7 +44,7 @@ const SCFB_FBInstanceData FORTE_LOG_X::scm_astInternalFBs[] = {
   {g_nStringIdLog_1, g_nStringIdLog},
   {g_nStringIdE_SWITCH, g_nStringIdE_SWITCH},
   {g_nStringIdE_SR, g_nStringIdE_SR},
-  {g_nStringIdF_BOOL_TO_INT, g_nStringIdF_BOOL_TO_INT},
+  {g_nStringIdF_BOOL_TO_INT, g_nStringIdF_BOOL_TO_INT}
 };
 
 const SCFB_FBParameter FORTE_LOG_X::scm_astParamters[] = {
@@ -77,8 +80,9 @@ const SCFB_FBNData FORTE_LOG_X::scm_stFBNData = {
   8, scm_astEventConnections,
   1, scm_astFannedOutEventConnections,
   6, scm_astDataConnections,
-  0, 0,
+  0, nullptr,
   1, scm_astParamters
 };
+
 
 
