@@ -37,4 +37,3 @@ EXPOSE 4840
 RUN ls -l /home/4diac/forteextmodules
 RUN date
   
-CMD /home/4diac/forte/build/src/forte -c localhost:61499 & /home/4diac/forte/build/src/forte -c localhost:61500 & /home/4diac/forte/build/src/forte -c localhost:61501 & /home/4diac/forte/build/src/forte -c localhost:61502 & /home/4diac/forte/build/src/forte -c localhost:61503 & /home/4diac/forte/build/src/forte -c localhost:61504 & /home/4diac/forte/build/src/forte -c localhost:61505 & /home/4diac/forte/build/src/forte -c localhost:61515

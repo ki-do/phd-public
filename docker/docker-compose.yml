@@ -4,29 +4,39 @@ services:
     image: forte
     ports:
       - 61499:61499
+    volumes:
+      - ./ext_module/4diac_apps/VDMA_Station1_Emulator_Robot.fboot:/home/4diac/forte/build/src/forte.fboot
+    command: sh -c "cd /home/4diac/forte/build/src/ && exec forte -f forte.fboot"
   
   forte_phd_2:
     image: forte
     ports:
       - 61500:61500
+    volumes:
+      - ./ext_module/4diac_apps/VDMA_Station1_Emulator_InnerTable.fboot:/home/4diac/forte/build/src/forte.fboot
+    command: sh -c "cd /home/4diac/forte/build/src/ && exec forte -f forte.fboot"
   
   forte_phd_3:
     image: forte
     ports:
       - 61501:61501
+    volumes:
+      - ./ext_module/4diac_apps/VDMA_Station1_Emulator_Storage.fboot:/home/4diac/forte/build/src/forte.fboot
+    command: sh -c "cd /home/4diac/forte/build/src/ && exec forte -f forte.fboot"
   
   forte_phd_4:
     image: forte
     ports:
       - 61502:61502
+    volumes:
+      - ./ext_module/4diac_apps/VDMA_Station1_Emulator_Gripper1.fboot:/home/4diac/forte/build/src/forte.fboot
+    command: sh -c "cd /home/4diac/forte/build/src/ && exec forte -f forte.fboot"
   
   forte_phd_5:
     image: forte
     ports:
-      - 61504:61504
-  
-  forte_phd_6:
-    image: forte
-    ports:
       - 61515:61515
       - 4840:4840
+    volumes:
+      - ./ext_module/4diac_apps/VDMA_Station1_Emulator_IOs_to_OPCUA.fboot:/home/4diac/forte/build/src/forte.fboot
+    command: sh -c "/bin/sleep 10 && cd /home/4diac/forte/build/src/ && exec forte -f forte.fboot"

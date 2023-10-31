@@ -1,0 +1,25 @@
+;<Request ID="2" Action="CREATE"><FB Name="central" Type="EMB_RES" /></Request>
+central;<Request ID="3" Action="CREATE"><FB Name="Gripper1.Gripper1IOs.GripActuator" Type="LOG_X" /></Request>
+central;<Request ID="4" Action="WRITE"><Connection Source="225.0.0.14:60012" Destination="Gripper1.Gripper1IOs.GripActuator.PARAMS" /></Request>
+central;<Request ID="5" Action="WRITE"><Connection Source="[Gripper]:DoGrip" Destination="Gripper1.Gripper1IOs.GripActuator.PORT_NAME" /></Request>
+central;<Request ID="6" Action="CREATE"><FB Name="Gripper1.Gripper1IOs.GrippedSensor" Type="LOG_X" /></Request>
+central;<Request ID="7" Action="WRITE"><Connection Source="225.0.0.13:60013" Destination="Gripper1.Gripper1IOs.GrippedSensor.PARAMS" /></Request>
+central;<Request ID="8" Action="WRITE"><Connection Source="[Gripper]:Gripped" Destination="Gripper1.Gripper1IOs.GrippedSensor.PORT_NAME" /></Request>
+central;<Request ID="9" Action="CREATE"><FB Name="Gripper1.IO_Logic.SUBSCRIBE_1" Type="SUBSCRIBE_1" /></Request>
+central;<Request ID="10" Action="WRITE"><Connection Source="1" Destination="Gripper1.IO_Logic.SUBSCRIBE_1.QI" /></Request>
+central;<Request ID="11" Action="WRITE"><Connection Source="225.0.0.14:60012" Destination="Gripper1.IO_Logic.SUBSCRIBE_1.ID" /></Request>
+central;<Request ID="12" Action="CREATE"><FB Name="Gripper1.IO_Logic.BOOL2BOOL" Type="BOOL2BOOL" /></Request>
+central;<Request ID="13" Action="CREATE"><FB Name="Gripper1.IO_Logic.PUBLISH_1" Type="PUBLISH_1" /></Request>
+central;<Request ID="14" Action="WRITE"><Connection Source="1" Destination="Gripper1.IO_Logic.PUBLISH_1.QI" /></Request>
+central;<Request ID="15" Action="WRITE"><Connection Source="225.0.0.13:60013" Destination="Gripper1.IO_Logic.PUBLISH_1.ID" /></Request>
+central;<Request ID="16" Action="CREATE"><Connection Source="Gripper1.Gripper1IOs.GrippedSensor.INITO" Destination="Gripper1.Gripper1IOs.GripActuator.INIT" /></Request>
+central;<Request ID="17" Action="CREATE"><Connection Source="Gripper1.IO_Logic.SUBSCRIBE_1.INITO" Destination="Gripper1.IO_Logic.PUBLISH_1.INIT" /></Request>
+central;<Request ID="18" Action="CREATE"><Connection Source="Gripper1.IO_Logic.SUBSCRIBE_1.IND" Destination="Gripper1.IO_Logic.BOOL2BOOL.REQ" /></Request>
+central;<Request ID="19" Action="CREATE"><Connection Source="Gripper1.IO_Logic.BOOL2BOOL.CNF" Destination="Gripper1.IO_Logic.PUBLISH_1.REQ" /></Request>
+central;<Request ID="20" Action="CREATE"><Connection Source="Gripper1.IO_Logic.SUBSCRIBE_1.RD_1" Destination="Gripper1.IO_Logic.BOOL2BOOL.IN" /></Request>
+central;<Request ID="21" Action="CREATE"><Connection Source="Gripper1.IO_Logic.BOOL2BOOL.OUT" Destination="Gripper1.IO_Logic.PUBLISH_1.SD_1" /></Request>
+central;<Request ID="22" Action="CREATE"><Connection Source="START.COLD" Destination="Gripper1.IO_Logic.SUBSCRIBE_1.INIT" /></Request>
+central;<Request ID="23" Action="CREATE"><Connection Source="START.COLD" Destination="Gripper1.Gripper1IOs.GrippedSensor.INIT" /></Request>
+central;<Request ID="24" Action="CREATE"><Connection Source="START.WARM" Destination="Gripper1.IO_Logic.SUBSCRIBE_1.INIT" /></Request>
+central;<Request ID="25" Action="CREATE"><Connection Source="START.WARM" Destination="Gripper1.Gripper1IOs.GrippedSensor.INIT" /></Request>
+central;<Request ID="25" Action="START"/>
