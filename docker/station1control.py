@@ -18,7 +18,7 @@ except ImportError:
 from opcua import Client
 from opcua import ua
 
-def write_and_wait(write_node, write_value, read_node):
+def write_and_wait(write_node, write_value, read_node, name):
     try:
         while True:
             if isinstance(write_value, bool):
@@ -33,7 +33,7 @@ def write_and_wait(write_node, write_value, read_node):
                 if read_value != write_value:
                     break
                 else:
-                    print(f"read_value == write_value")
+                    print(name + " new value is: " + str(write_value))
                 time.sleep(1)  
                 return
     except KeyboardInterrupt:
@@ -63,31 +63,30 @@ storage_part1 = root.get_child(["0:Objects", "{}:IOs".format(idx), "{}:Storage.P
 storage_part2 = root.get_child(["0:Objects", "{}:IOs".format(idx), "{}:Storage.Part2In".format(idx)])
 storage_part3 = root.get_child(["0:Objects", "{}:IOs".format(idx), "{}:Storage.Part3In".format(idx)])
 storage_part4 = root.get_child(["0:Objects", "{}:IOs".format(idx), "{}:Storage.Part4In".format(idx)])
-        #obj = root.get_child(["0:Objects", "{}:MyObject".format(idx)])
 
-write_and_wait(storage_goout, True, storage_isout)
+write_and_wait(storage_goout, True, storage_isout, "Storage.GoMagazinOut")
 storage_goout.set_value(False)
-write_and_wait(storage_goin, True, storage_isin)
-write_and_wait(table_setpos, 3, table_curpos)
+write_and_wait(storage_goin, True, storage_isin, "Storage.GoMagazinIn")
+write_and_wait(table_setpos, 3, table_curpos, "InnerTable.CurrentPosition")
 storage_goin.set_value(False)
-write_and_wait(storage_goout, True, storage_isout)
-write_and_wait(gripper_grip, False, gripper_gripped)
-write_and_wait(table_setpos, 1, table_curpos)
-write_and_wait(gripper_grip, True, gripper_gripped)
-write_and_wait(robot_setpos, 11, robot_curpos)
-write_and_wait(gripper_grip, False, gripper_gripped)
-write_and_wait(table_setpos, 2, table_curpos)
-write_and_wait(gripper_grip, True, gripper_gripped)
-write_and_wait(robot_setpos, 12, robot_curpos)
-write_and_wait(gripper_grip, False, gripper_gripped)
-write_and_wait(table_setpos, 3, table_curpos)
-write_and_wait(gripper_grip, True, gripper_gripped)
-write_and_wait(robot_setpos, 13, robot_curpos)
-write_and_wait(gripper_grip, False, gripper_gripped)
-write_and_wait(table_setpos, 4, table_curpos)
-write_and_wait(gripper_grip, True, gripper_gripped)
-write_and_wait(robot_setpos, 14, robot_curpos)
-write_and_wait(gripper_grip, False, gripper_gripped)
-write_and_wait(robot_setpos, 99, robot_curpos)
+write_and_wait(storage_goout, True, storage_isout, "Storage.GoMagazinOut")
+write_and_wait(gripper_grip, False, gripper_gripped, "Gripper1.Gripped")
+write_and_wait(table_setpos, 1, table_curpos, "InnerTable.CurrentPosition")
+write_and_wait(gripper_grip, True, gripper_gripped, "Gripper1.Gripped")
+write_and_wait(robot_setpos, 11, robot_curpos, "Robot.CurrentPosition")
+write_and_wait(gripper_grip, False, gripper_gripped, "Gripper1.Gripped")
+write_and_wait(table_setpos, 2, table_curpos, "InnerTable.CurrentPosition")
+write_and_wait(gripper_grip, True, gripper_gripped, "Gripper1.Gripped")
+write_and_wait(robot_setpos, 12, robot_curpos, "Robot.CurrentPosition")
+write_and_wait(gripper_grip, False, gripper_gripped, "Gripper1.Gripped")
+write_and_wait(table_setpos, 3, table_curpos, "InnerTable.CurrentPosition")
+write_and_wait(gripper_grip, True, gripper_gripped, "Gripper1.Gripped")
+write_and_wait(robot_setpos, 13, robot_curpos, "Robot.CurrentPosition")
+write_and_wait(gripper_grip, False, gripper_gripped, "Gripper1.Gripped")
+write_and_wait(table_setpos, 4, table_curpos, "InnerTable.CurrentPosition")
+write_and_wait(gripper_grip, True, gripper_gripped, "Gripper1.Gripped")
+write_and_wait(robot_setpos, 14, robot_curpos, "Robot.CurrentPosition")
+write_and_wait(gripper_grip, False, gripper_gripped, "Gripper1.Gripped")
+write_and_wait(robot_setpos, 99, robot_curpos, "Robot.CurrentPosition")
 
 client.disconnect()
