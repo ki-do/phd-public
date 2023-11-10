@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="LOG_X" Comment="Composite FB wrapping other FBs">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2021-08-05">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Type="Event" Comment="Initialization Request">
+				<With Var="PORT_NAME"/>
+				<With Var="PARAMS"/>
+				<With Var="QI"/>
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Type="Event" Comment="">
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier"/>
+			<VarDeclaration Name="PARAMS" Type="STRING" Comment=""/>
+			<VarDeclaration Name="PORT_NAME" Type="WSTRING" Comment=""/>
+		</InputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="F_STRING_TO_WSTRING" Type="F_STRING_TO_WSTRING" Comment="" x="1300.0" y="1900.0">
+		</FB>
+		<FB Name="SUBSCRIBE_1" Type="SUBSCRIBE_1" Comment="" x="2600.0" y="1600.0">
+			<Parameter Name="QI" Value="1"/>
+		</FB>
+		<FB Name="Log_1" Type="Log" Comment="" x="6533.333333333334" y="2800.0">
+		</FB>
+		<FB Name="E_SWITCH" Type="E_SWITCH" Comment="" x="3600.0" y="2400.0">
+		</FB>
+		<FB Name="E_SR" Type="E_SR" Comment="" x="4533.333333333334" y="2400.0">
+		</FB>
+		<FB Name="F_BOOL_TO_INT" Type="F_BOOL_TO_INT" Comment="" x="5200.0" y="2533.3333333333335">
+		</FB>
+		<EventConnections>
+			<Connection Source="INIT" Destination="F_STRING_TO_WSTRING.REQ" Comment="" dx1="740.0"/>
+			<Connection Source="F_STRING_TO_WSTRING.CNF" Destination="SUBSCRIBE_1.INIT" Comment="" dx1="160.0"/>
+			<Connection Source="SUBSCRIBE_1.INITO" Destination="INITO" Comment="" dx1="2633.3333333333335"/>
+			<Connection Source="INIT" Destination="Log_1.INIT" Comment="" dx1="5886.666666666667"/>
+			<Connection Source="E_SWITCH.EO1" Destination="E_SR.S" Comment="" dx1="186.66666666666669"/>
+			<Connection Source="E_SWITCH.EO0" Destination="E_SR.R" Comment="" dx1="180.0"/>
+			<Connection Source="SUBSCRIBE_1.IND" Destination="E_SWITCH.EI" Comment="" dx1="166.66666666666669"/>
+			<Connection Source="E_SR.EO" Destination="F_BOOL_TO_INT.REQ" Comment="" dx1="160.0"/>
+			<Connection Source="F_BOOL_TO_INT.CNF" Destination="Log_1.REQ" Comment="" dx1="286.6666666666667"/>
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="PARAMS" Destination="F_STRING_TO_WSTRING.IN" Comment="" dx1="486.6666666666667"/>
+			<Connection Source="F_STRING_TO_WSTRING.OUT" Destination="SUBSCRIBE_1.ID" Comment="" dx1="160.0"/>
+			<Connection Source="SUBSCRIBE_1.RD_1" Destination="E_SWITCH.G" Comment="" dx1="166.66666666666669"/>
+			<Connection Source="E_SR.Q" Destination="F_BOOL_TO_INT.IN" Comment="" dx1="160.0"/>
+			<Connection Source="F_BOOL_TO_INT.OUT" Destination="Log_1.VALUE" Comment="" dx1="286.6666666666667"/>
+			<Connection Source="PORT_NAME" Destination="Log_1.NAME" Comment="" dx1="3026.666666666667"/>
+		</DataConnections>
+	</FBNetwork>
+</FBType>

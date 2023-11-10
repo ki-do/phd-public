@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="AROBOT_MUX" Comment="Composite FB wrapping other FBs">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Organization="4DIAC-Consortium" Version="0.0" Author="4DIAC-IDE" Date="2008-07-10">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="PresetPositionUpd" Type="Event" Comment="Indication from Plug">
+				<With Var="PresetPosition"/>
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="PositionUpdate" Type="Event" Comment="Request from Socket">
+				<With Var="CurrentPosition"/>
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="PresetPosition" Type="WORD" Comment="Confirmation Data from Plug"/>
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="CurrentPosition" Type="WORD" Comment="Request Data from Socket"/>
+		</OutputVars>
+		<Plugs>
+			<AdapterDeclaration Name="ARobot" Type="ARobot" Comment="" x="50.0" y="50.0"/>
+		</Plugs>
+	</InterfaceList>
+	<FBNetwork>
+		<EventConnections>
+			<Connection Source="PresetPositionUpd" Destination="ARobot.PresetPositionUpd" Comment=""/>
+			<Connection Source="ARobot.PositionUpdate" Destination="PositionUpdate" Comment=""/>
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="PresetPosition" Destination="ARobot.PresetPosition" Comment=""/>
+			<Connection Source="ARobot.CurrentPosition" Destination="CurrentPosition" Comment=""/>
+		</DataConnections>
+	</FBNetwork>
+</FBType>

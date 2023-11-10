@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="AGRIPPER_MUX" Comment="Composite FB wrapping other FBs">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Organization="4DIAC-Consortium" Version="0.0" Author="4DIAC-IDE" Date="2008-07-10">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Grip" Type="Event" Comment="Confirmation from Plug">
+			</Event>
+			<Event Name="Release" Type="Event" Comment="Indication from Plug">
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Gripped" Type="Event" Comment="Request from Socket">
+			</Event>
+			<Event Name="Released" Type="Event" Comment="Response from Socket">
+			</Event>
+		</EventOutputs>
+		<Plugs>
+			<AdapterDeclaration Name="AGripper" Type="AGripper" Comment="" x="50.0" y="50.0"/>
+		</Plugs>
+	</InterfaceList>
+	<FBNetwork>
+		<EventConnections>
+			<Connection Source="Grip" Destination="AGripper.Grip" Comment=""/>
+			<Connection Source="Release" Destination="AGripper.Release" Comment=""/>
+			<Connection Source="AGripper.Gripped" Destination="Gripped" Comment=""/>
+			<Connection Source="AGripper.Released" Destination="Released" Comment=""/>
+		</EventConnections>
+	</FBNetwork>
+</FBType>

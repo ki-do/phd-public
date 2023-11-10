@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="DepotSkill" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2021-09-15">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="start" Type="Event" Comment="">
+			</Event>
+			<Event Name="stop" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="started" Type="Event" Comment="">
+			</Event>
+			<Event Name="stopped" Type="Event" Comment="">
+			</Event>
+			<Event Name="TurntablePresetPositionUpd" Type="Event" Comment="">
+				<With Var="TurntablePresetPosition"/>
+			</Event>
+		</EventOutputs>
+		<OutputVars>
+			<VarDeclaration Name="TurntablePresetPosition" Type="WORD" Comment=""/>
+		</OutputVars>
+		<Plugs>
+			<AdapterDeclaration Name="AStorage" Type="IAS_Skill" Comment=""/>
+			<AdapterDeclaration Name="ATurntable" Type="IAS_Skill" Comment=""/>
+		</Plugs>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="546.6666666666667" y="420.0">
+			</ECState>
+			<ECState Name="State_1" Comment="" x="2113.3333333333335" y="2333.3333333333335">
+				<ECAction Algorithm="TableToPosition3" Output="TurntablePresetPositionUpd"/>
+				<ECAction Output="ATurntable.start"/>
+			</ECState>
+			<ECState Name="State_2" Comment="" x="2653.3333333333335" y="3180.0">
+				<ECAction Output="AStorage.start"/>
+			</ECState>
+			<ECState Name="State_3" Comment="" x="5066.666666666667" y="2000.0">
+				<ECAction Output="stopped"/>
+			</ECState>
+			<ECState Name="State_4" Comment="" x="2200.0" y="1300.0">
+				<ECAction Output="started"/>
+				<ECAction Output="AStorage.start"/>
+			</ECState>
+			<ECState Name="State" Comment="" x="2000.0" y="2900.0">
+			</ECState>
+			<ECState Name="State_5" Comment="" x="3020.0" y="1940.0">
+			</ECState>
+			<ECState Name="State_6" Comment="" x="2160.0" y="3693.3333333333335">
+			</ECState>
+			<ECState Name="State_7" Comment="" x="4533.333333333334" y="4040.0">
+				<ECAction Algorithm="TableToPosition1" Output="TurntablePresetPositionUpd"/>
+				<ECAction Output="ATurntable.start"/>
+			</ECState>
+			<ECState Name="State_8" Comment="" x="5066.666666666667" y="2933.3333333333335">
+			</ECState>
+			<ECTransition Source="START" Destination="State_4" Condition="start" Comment="" x="1760.0" y="1160.0"/>
+			<ECTransition Source="State_3" Destination="START" Condition="1" Comment="" x="5020.0" y="1486.6666666666667"/>
+			<ECTransition Source="State_1" Destination="State" Condition="ATurntable.RSP[ATurntable.currentState = &quot;Executing&quot;]" Comment="" x="2140.0" y="2740.0"/>
+			<ECTransition Source="State" Destination="State_2" Condition="ATurntable.RSP[ATurntable.currentState = &quot;Idle&quot;]" Comment="" x="2493.3333333333335" y="3113.3333333333335"/>
+			<ECTransition Source="State_4" Destination="State_5" Condition="AStorage.RSP[AStorage.currentState = &quot;Executing&quot;]" Comment="" x="2660.0" y="1620.0"/>
+			<ECTransition Source="State_5" Destination="State_1" Condition="AStorage.RSP[AStorage.currentState = &quot;Idle&quot;]" Comment="" x="2740.0" y="2180.0"/>
+			<ECTransition Source="State_2" Destination="State_6" Condition="AStorage.RSP[AStorage.currentState = &quot;Executing&quot;]" Comment="" x="2586.666666666667" y="3500.0"/>
+			<ECTransition Source="State_6" Destination="State_7" Condition="AStorage.RSP[AStorage.currentState = &quot;Idle&quot;]" Comment="" x="3060.0" y="3853.3333333333335"/>
+			<ECTransition Source="State_7" Destination="State_8" Condition="ATurntable.RSP[ATurntable.currentState = &quot;Executing&quot;]" Comment="" x="5166.666666666667" y="3513.3333333333335"/>
+			<ECTransition Source="State_8" Destination="State_3" Condition="ATurntable.RSP[ATurntable.currentState = &quot;Idle&quot;]" Comment="" x="5380.0" y="2726.666666666667"/>
+		</ECC>
+		<Algorithm Name="TableToPosition3" Comment="New Algorithm">
+			<ST><![CDATA[TurntablePresetPosition := 3;]]></ST>
+		</Algorithm>
+		<Algorithm Name="TableToPosition1" Comment="New Algorithm">
+			<ST><![CDATA[TurntablePresetPosition := 1;]]></ST>
+		</Algorithm>
+	</BasicFB>
+</FBType>

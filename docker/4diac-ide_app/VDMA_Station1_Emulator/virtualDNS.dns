@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<virtualDNS:VirtualDNSManagement xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:virtualDNS="org.eclipse.fordiac.ide.virtualDNS" activeVirtualDNS="//@availableDNSCollections.0">
+  <availableDNSCollections name="IOConfiguration">
+    <virtualDNSEntries name="Storage_Part1In" value="225.0.0.5:60000"/>
+    <virtualDNSEntries name="Storage_Part2In" value="225.0.0.6:60001"/>
+    <virtualDNSEntries name="Storage_Part3In" value="225.0.0.7:60002"/>
+    <virtualDNSEntries name="Storage_Part4In" value="225.0.0.8:60003"/>
+    <virtualDNSEntries name="Storage_StorageIsIn" value="225.0.0.9:60004"/>
+    <virtualDNSEntries name="Storage_StorageIsOut" value="225.0.0.10:60005"/>
+    <virtualDNSEntries name="Storage_StorageGoOut" value="225.0.0.11:60006"/>
+    <virtualDNSEntries name="Storage_StorageGoIn" value="225.0.0.12:60007"/>
+    <virtualDNSEntries name="Robot_PositionInput" value="225.0.0.1:60008"/>
+    <virtualDNSEntries name="Robot_PositionOutput" value="225.0.0.2:60009"/>
+    <virtualDNSEntries name="InnerTable_PositionInput" value="225.0.0.3:60010"/>
+    <virtualDNSEntries name="InnerTable_PositionOutput" value="225.0.0.4:60011"/>
+    <virtualDNSEntries name="Gripper1_Gripped" value="225.0.0.14:60012"/>
+    <virtualDNSEntries name="Gripper1_DoGrip" value="225.0.0.13:60013"/>
+  </availableDNSCollections>
+</virtualDNS:VirtualDNSManagement>

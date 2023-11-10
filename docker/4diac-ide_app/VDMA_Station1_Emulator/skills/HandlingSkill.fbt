@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="HandlingSkill" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2021-09-15">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="start" Type="Event" Comment="">
+			</Event>
+			<Event Name="stop" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="started" Type="Event" Comment="">
+			</Event>
+			<Event Name="stopped" Type="Event" Comment="">
+			</Event>
+			<Event Name="RobotPositionUpd" Type="Event" Comment="">
+				<With Var="RobotPosition"/>
+			</Event>
+		</EventOutputs>
+		<OutputVars>
+			<VarDeclaration Name="RobotPosition" Type="WORD" Comment=""/>
+		</OutputVars>
+		<Plugs>
+			<AdapterDeclaration Name="AGripper" Type="IAS_Skill" Comment=""/>
+			<AdapterDeclaration Name="ARobot" Type="IAS_Skill" Comment=""/>
+		</Plugs>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="550.0" y="425.0">
+			</ECState>
+			<ECState Name="State_1" Comment="" x="1935.0" y="1520.0">
+				<ECAction Algorithm="RobotGoTo1" Output="RobotPositionUpd"/>
+				<ECAction Output="ARobot.start"/>
+				<ECAction Output="started"/>
+			</ECState>
+			<ECState Name="State_2" Comment="" x="2140.0" y="2390.0">
+				<ECAction Output="AGripper.start"/>
+			</ECState>
+			<ECState Name="State_3" Comment="" x="1935.0" y="3040.0">
+				<ECAction Algorithm="RobotGoTo11" Output="RobotPositionUpd"/>
+				<ECAction Output="ARobot.start"/>
+			</ECState>
+			<ECState Name="State_4" Comment="" x="1960.0" y="3735.0">
+				<ECAction Output="AGripper.start"/>
+			</ECState>
+			<ECState Name="State_5" Comment="" x="5165.0" y="665.0">
+				<ECAction Output="AGripper.start"/>
+			</ECState>
+			<ECState Name="State_6" Comment="" x="5760.0" y="1520.0">
+				<ECAction Algorithm="RobotGoTo12" Output="RobotPositionUpd"/>
+				<ECAction Output="ARobot.start"/>
+			</ECState>
+			<ECState Name="State_7" Comment="" x="5900.0" y="2900.0">
+				<ECAction Algorithm="RobotGoTo3" Output="RobotPositionUpd"/>
+				<ECAction Output="ARobot.start"/>
+			</ECState>
+			<ECState Name="State_8" Comment="" x="6100.0" y="3600.0">
+				<ECAction Output="AGripper.start"/>
+			</ECState>
+			<ECState Name="State_9" Comment="" x="6195.0" y="4065.0">
+				<ECAction Algorithm="RobotGoTo13" Output="RobotPositionUpd"/>
+				<ECAction Output="ARobot.start"/>
+			</ECState>
+			<ECState Name="State_10" Comment="" x="6200.0" y="5400.0">
+				<ECAction Algorithm="RobotGoTo4" Output="RobotPositionUpd"/>
+				<ECAction Output="ARobot.start"/>
+			</ECState>
+			<ECState Name="State_11" Comment="" x="8935.0" y="625.0">
+				<ECAction Output="AGripper.start"/>
+			</ECState>
+			<ECState Name="State_12" Comment="" x="9500.0" y="1500.0">
+				<ECAction Algorithm="RobotGoTo14" Output="RobotPositionUpd"/>
+				<ECAction Output="ARobot.start"/>
+			</ECState>
+			<ECState Name="State_13" Comment="" x="9600.0" y="3700.0">
+				<ECAction Algorithm="RobotGoTo99" Output="RobotPositionUpd"/>
+				<ECAction Output="ARobot.start"/>
+			</ECState>
+			<ECState Name="State" Comment="" x="2895.0" y="550.0">
+			</ECState>
+			<ECState Name="State_15" Comment="" x="2185.0" y="4455.0">
+				<ECAction Algorithm="RobotGoTo2" Output="RobotPositionUpd"/>
+				<ECAction Output="ARobot.start"/>
+			</ECState>
+			<ECState Name="State_16" Comment="" x="6320.0" y="2275.0">
+				<ECAction Output="AGripper.start"/>
+			</ECState>
+			<ECState Name="State_17" Comment="" x="4800.0" y="4700.0">
+			</ECState>
+			<ECState Name="State_18" Comment="" x="10200.0" y="2100.0">
+			</ECState>
+			<ECState Name="State_14" Comment="" x="1100.0" y="2000.0">
+			</ECState>
+			<ECState Name="State_19" Comment="" x="1000.0" y="2700.0">
+			</ECState>
+			<ECState Name="State_20" Comment="" x="915.0" y="3445.0">
+			</ECState>
+			<ECState Name="State_21" Comment="" x="1160.0" y="4315.0">
+			</ECState>
+			<ECState Name="State_22" Comment="" x="4155.0" y="2625.0">
+			</ECState>
+			<ECState Name="State_23" Comment="" x="6450.0" y="1200.0">
+			</ECState>
+			<ECState Name="State_24" Comment="" x="7000.0" y="2000.0">
+			</ECState>
+			<ECState Name="State_25" Comment="" x="6005.0" y="2635.0">
+			</ECState>
+			<ECState Name="State_26" Comment="" x="5050.0" y="3225.0">
+			</ECState>
+			<ECState Name="State_27" Comment="" x="4930.0" y="3960.0">
+			</ECState>
+			<ECState Name="State_28" Comment="" x="6300.0" y="4900.0">
+				<ECAction Output="AGripper.start"/>
+			</ECState>
+			<ECState Name="State_29" Comment="" x="5025.0" y="5365.0">
+			</ECState>
+			<ECState Name="State_30" Comment="" x="8760.0" y="3345.0">
+			</ECState>
+			<ECState Name="State_31" Comment="" x="10190.0" y="1105.0">
+			</ECState>
+			<ECState Name="State_32" Comment="" x="10465.0" y="2650.0">
+				<ECAction Output="AGripper.start"/>
+			</ECState>
+			<ECState Name="State_33" Comment="" x="10100.0" y="3225.0">
+			</ECState>
+			<ECState Name="State_34" Comment="" x="1715.0" y="205.0">
+				<ECAction Output="stopped"/>
+			</ECState>
+			<ECTransition Source="State_13" Destination="State" Condition="ARobot.RSP[ARobot.currentState = &quot;Executing&quot;]" Comment="" x="6770.0" y="250.0"/>
+			<ECTransition Source="State_9" Destination="State_17" Condition="ARobot.RSP[ARobot.currentState = &quot;Executing&quot;]" Comment="" x="5620.0" y="4495.0"/>
+			<ECTransition Source="State_12" Destination="State_18" Condition="ARobot.RSP[ARobot.currentState = &quot;Executing&quot;]" Comment="" x="10225.0" y="1900.0"/>
+			<ECTransition Source="START" Destination="State_1" Condition="start" Comment="" x="1290.0" y="1035.0"/>
+			<ECTransition Source="State_1" Destination="State_14" Condition="ARobot.RSP[ARobot.currentState = &quot;Executing&quot;]" Comment="" x="1250.0" y="1825.0"/>
+			<ECTransition Source="State_14" Destination="State_2" Condition="ARobot.RSP[ARobot.currentState = &quot;Idle&quot;]" Comment="" x="1865.0" y="2235.0"/>
+			<ECTransition Source="State_2" Destination="State_19" Condition="AGripper.RSP[AGripper.currentState = &quot;Executing&quot;]" Comment="" x="990.0" y="2485.0"/>
+			<ECTransition Source="State_19" Destination="State_3" Condition="AGripper.RSP[AGripper.currentState = &quot;Idle&quot;]" Comment="" x="1405.0" y="2895.0"/>
+			<ECTransition Source="State_3" Destination="State_20" Condition="ARobot.RSP[ARobot.currentState = &quot;Executing&quot;]" Comment="" x="1545.0" y="3295.0"/>
+			<ECTransition Source="State_20" Destination="State_4" Condition="ARobot.RSP[ARobot.currentState = &quot;Idle&quot;]" Comment="" x="1635.0" y="3665.0"/>
+			<ECTransition Source="State_4" Destination="State_21" Condition="AGripper.RSP[AGripper.currentState = &quot;Executing&quot;]" Comment="" x="1550.0" y="4060.0"/>
+			<ECTransition Source="State_21" Destination="State_15" Condition="AGripper.RSP[AGripper.currentState = &quot;Idle&quot;]" Comment="" x="1890.0" y="4450.0"/>
+			<ECTransition Source="State_15" Destination="State_22" Condition="ARobot.RSP[ARobot.currentState = &quot;Executing&quot;]" Comment="" x="3640.0" y="3535.0"/>
+			<ECTransition Source="State_22" Destination="State_5" Condition="ARobot.RSP[ARobot.currentState = &quot;Idle&quot;]" Comment="" x="4765.0" y="1700.0"/>
+			<ECTransition Source="State_5" Destination="State_23" Condition="AGripper.RSP[AGripper.currentState = &quot;Executing&quot;]" Comment="" x="5875.0" y="920.0"/>
+			<ECTransition Source="State_23" Destination="State_6" Condition="AGripper.RSP[AGripper.currentState = &quot;Idle&quot;]" Comment="" x="6300.0" y="1410.0"/>
+			<ECTransition Source="State_6" Destination="State_24" Condition="ARobot.RSP[ARobot.currentState = &quot;Executing&quot;]" Comment="" x="6705.0" y="1895.0"/>
+			<ECTransition Source="State_24" Destination="State_16" Condition="ARobot.RSP[ARobot.currentState = &quot;Idle&quot;]" Comment="" x="6830.0" y="2190.0"/>
+			<ECTransition Source="State_16" Destination="State_25" Condition="AGripper.RSP[AGripper.currentState = &quot;Executing&quot;]" Comment="" x="6360.0" y="2510.0"/>
+			<ECTransition Source="State_25" Destination="State_7" Condition="AGripper.RSP[AGripper.currentState = &quot;Idle&quot;]" Comment="" x="6165.0" y="2830.0"/>
+			<ECTransition Source="State_7" Destination="State_26" Condition="ARobot.RSP[ARobot.currentState = &quot;Executing&quot;]" Comment="" x="5410.0" y="3130.0"/>
+			<ECTransition Source="State_26" Destination="State_8" Condition="ARobot.RSP[ARobot.currentState = &quot;Idle&quot;]" Comment="" x="5695.0" y="3430.0"/>
+			<ECTransition Source="State_8" Destination="State_27" Condition="AGripper.RSP[AGripper.currentState = &quot;Executing&quot;]" Comment="" x="5145.0" y="3810.0"/>
+			<ECTransition Source="State_27" Destination="State_9" Condition="AGripper.RSP[AGripper.currentState = &quot;Idle&quot;]" Comment="" x="5125.0" y="4250.0"/>
+			<ECTransition Source="State_17" Destination="State_28" Condition="ARobot.RSP[ARobot.currentState = &quot;Idle&quot;]" Comment="" x="5085.0" y="5025.0"/>
+			<ECTransition Source="State_28" Destination="State_29" Condition="AGripper.RSP[AGripper.currentState = &quot;Executing&quot;]" Comment="" x="5850.0" y="5200.0"/>
+			<ECTransition Source="State_29" Destination="State_10" Condition="AGripper.RSP[AGripper.currentState = &quot;Idle&quot;]" Comment="" x="5630.0" y="5840.0"/>
+			<ECTransition Source="State_10" Destination="State_30" Condition="ARobot.RSP[ARobot.currentState = &quot;Executing&quot;]" Comment="" x="8630.0" y="4625.0"/>
+			<ECTransition Source="State_30" Destination="State_11" Condition="ARobot.RSP[ARobot.currentState = &quot;Idle&quot;]" Comment="" x="8960.0" y="2040.0"/>
+			<ECTransition Source="State_11" Destination="State_31" Condition="AGripper.RSP[AGripper.currentState = &quot;Executing&quot;]" Comment="" x="9620.0" y="925.0"/>
+			<ECTransition Source="State_31" Destination="State_12" Condition="AGripper.RSP[AGripper.currentState = &quot;Idle&quot;]" Comment="" x="9980.0" y="1365.0"/>
+			<ECTransition Source="State_18" Destination="State_32" Condition="ARobot.RSP[ARobot.currentState = &quot;Idle&quot;]" Comment="" x="10300.0" y="2465.0"/>
+			<ECTransition Source="State_32" Destination="State_33" Condition="AGripper.RSP[AGripper.currentState = &quot;Executing&quot;]" Comment="" x="10485.0" y="3020.0"/>
+			<ECTransition Source="State_33" Destination="State_13" Condition="AGripper.RSP[AGripper.currentState = &quot;Idle&quot;]" Comment="" x="10080.0" y="3515.0"/>
+			<ECTransition Source="State" Destination="State_34" Condition="ARobot.RSP[ARobot.currentState = &quot;Idle&quot;]" Comment="" x="2290.0" y="470.0"/>
+			<ECTransition Source="State_34" Destination="START" Condition="1" Comment="" x="1290.0" y="355.0"/>
+		</ECC>
+		<Algorithm Name="RobotGoTo1" Comment="New Algorithm">
+			<ST><![CDATA[RobotPosition := 1;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo2" Comment="New Algorithm">
+			<ST><![CDATA[RobotPosition := 2;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo3" Comment="New Algorithm">
+			<ST><![CDATA[RobotPosition := 3;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo4" Comment="New Algorithm">
+			<ST><![CDATA[RobotPosition := 4;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo11" Comment="New Algorithm">
+			<ST><![CDATA[RobotPosition := 11;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo12" Comment="New Algorithm">
+			<ST><![CDATA[RobotPosition := 12;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo13" Comment="New Algorithm">
+			<ST><![CDATA[RobotPosition := 13;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo14" Comment="New Algorithm">
+			<ST><![CDATA[RobotPosition := 14;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo99" Comment="New Algorithm">
+			<ST><![CDATA[RobotPosition := 99;]]></ST>
+		</Algorithm>
+	</BasicFB>
+</FBType>

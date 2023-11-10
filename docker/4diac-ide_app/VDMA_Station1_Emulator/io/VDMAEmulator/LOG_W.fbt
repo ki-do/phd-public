@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="LOG_W" Comment="Composite FB wrapping other FBs">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2021-08-05">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Type="Event" Comment="Initialization Request">
+				<With Var="PORT_NAME"/>
+				<With Var="PARAMS"/>
+				<With Var="QI"/>
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Type="Event" Comment="">
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier"/>
+			<VarDeclaration Name="PARAMS" Type="STRING" Comment=""/>
+			<VarDeclaration Name="PORT_NAME" Type="WSTRING" Comment=""/>
+		</InputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="F_STRING_TO_WSTRING" Type="F_STRING_TO_WSTRING" Comment="" x="1300.0" y="1900.0">
+		</FB>
+		<FB Name="SUBSCRIBE_1" Type="SUBSCRIBE_1" Comment="" x="2600.0" y="1600.0">
+			<Parameter Name="QI" Value="1"/>
+		</FB>
+		<FB Name="Log" Type="Log" Comment="" x="6233.333333333334" y="2366.666666666667">
+		</FB>
+		<FB Name="INT2INT" Type="F_WORD_TO_INT" Comment="" x="3966.666666666667" y="3126.666666666667">
+		</FB>
+		<FB Name="CompareInts" Type="CompareInts" Comment="" x="4933.333333333334" y="3066.666666666667">
+		</FB>
+		<EventConnections>
+			<Connection Source="INIT" Destination="F_STRING_TO_WSTRING.REQ" Comment="" dx1="740.0"/>
+			<Connection Source="F_STRING_TO_WSTRING.CNF" Destination="SUBSCRIBE_1.INIT" Comment="" dx1="160.0"/>
+			<Connection Source="SUBSCRIBE_1.INITO" Destination="INITO" Comment="" dx1="2633.3333333333335"/>
+			<Connection Source="SUBSCRIBE_1.IND" Destination="INT2INT.REQ" Comment="" dx1="346.6666666666667"/>
+			<Connection Source="INT2INT.CNF" Destination="CompareInts.REQ" Comment="" dx1="126.66666666666667"/>
+			<Connection Source="CompareInts.CNF" Destination="Log.REQ" Comment="" dx1="80.0"/>
+			<Connection Source="INIT" Destination="Log.INIT" Comment="" dx1="3786.666666666667"/>
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="PARAMS" Destination="F_STRING_TO_WSTRING.IN" Comment="" dx1="486.6666666666667"/>
+			<Connection Source="F_STRING_TO_WSTRING.OUT" Destination="SUBSCRIBE_1.ID" Comment="" dx1="160.0"/>
+			<Connection Source="PORT_NAME" Destination="Log.NAME" Comment="" dx1="2873.3333333333335"/>
+			<Connection Source="SUBSCRIBE_1.RD_1" Destination="INT2INT.IN" Comment="" dx1="346.6666666666667"/>
+			<Connection Source="INT2INT.OUT" Destination="CompareInts.NewValue" Comment="" dx1="100.0"/>
+			<Connection Source="CompareInts.WriteValue" Destination="Log.VALUE" Comment="" dx1="166.66666666666669"/>
+		</DataConnections>
+	</FBNetwork>
+</FBType>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="Station1Skill" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2021-09-15">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="doRound" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+		<Plugs>
+			<AdapterDeclaration Name="ADepot" Type="IAS_Skill" Comment=""/>
+			<AdapterDeclaration Name="AHandling" Type="IAS_Skill" Comment=""/>
+		</Plugs>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="550.0" y="425.0">
+			</ECState>
+			<ECState Name="State" Comment="" x="1935.0" y="920.0">
+				<ECAction Output="ADepot.start"/>
+			</ECState>
+			<ECState Name="State_1" Comment="" x="1275.0" y="1605.0">
+			</ECState>
+			<ECState Name="State_2" Comment="" x="2585.0" y="1900.0">
+			</ECState>
+			<ECState Name="State_3" Comment="" x="2650.0" y="2910.0">
+				<ECAction Output="AHandling.start"/>
+			</ECState>
+			<ECTransition Source="START" Destination="State" Condition="doRound" Comment="" x="1240.0" y="670.0"/>
+			<ECTransition Source="State_1" Destination="START" Condition="AHandling.RSP[AHandling.currentState = &quot;Idle&quot;]" Comment="" x="765.0" y="1235.0"/>
+			<ECTransition Source="State" Destination="State_2" Condition="ADepot.RSP[ADepot.currentState = &quot;Executing&quot;]" Comment="" x="2350.0" y="1435.0"/>
+			<ECTransition Source="State_2" Destination="State_3" Condition="ADepot.RSP[ADepot.currentState = &quot;Idle&quot;]" Comment="" x="3015.0" y="2585.0"/>
+			<ECTransition Source="State_3" Destination="State_1" Condition="AHandling.RSP[AHandling.currentState = &quot;Executing&quot;]" Comment="" x="1425.0" y="2360.0"/>
+		</ECC>
+	</BasicFB>
+</FBType>

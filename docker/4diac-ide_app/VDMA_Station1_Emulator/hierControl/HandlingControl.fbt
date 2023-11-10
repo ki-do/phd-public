@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="HandlingControl" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2021-09-15">
+	</VersionInfo>
+	<InterfaceList>
+		<Plugs>
+			<AdapterDeclaration Name="AGripper" Type="AGripper" Comment=""/>
+			<AdapterDeclaration Name="ARobot" Type="ARobot" Comment=""/>
+		</Plugs>
+		<Sockets>
+			<AdapterDeclaration Name="AHandling" Type="AHandling" Comment=""/>
+		</Sockets>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="550.0" y="425.0">
+			</ECState>
+			<ECState Name="State_1" Comment="" x="1935.0" y="1520.0">
+				<ECAction Algorithm="RobotGoTo1" Output="ARobot.PresetPositionUpd"/>
+			</ECState>
+			<ECState Name="State_2" Comment="" x="2140.0" y="2390.0">
+				<ECAction Output="AGripper.Grip"/>
+			</ECState>
+			<ECState Name="State_3" Comment="" x="1935.0" y="3040.0">
+				<ECAction Algorithm="RobotGoTo11" Output="ARobot.PresetPositionUpd"/>
+			</ECState>
+			<ECState Name="State_4" Comment="" x="1960.0" y="3735.0">
+				<ECAction Output="AGripper.Release"/>
+			</ECState>
+			<ECState Name="State_5" Comment="" x="5165.0" y="665.0">
+				<ECAction Output="AGripper.Grip"/>
+			</ECState>
+			<ECState Name="State_6" Comment="" x="5760.0" y="1520.0">
+				<ECAction Algorithm="RobotGoTo12" Output="ARobot.PresetPositionUpd"/>
+			</ECState>
+			<ECState Name="State_7" Comment="" x="5900.0" y="2900.0">
+				<ECAction Algorithm="RobotGoTo3" Output="ARobot.PresetPositionUpd"/>
+			</ECState>
+			<ECState Name="State_8" Comment="" x="6090.0" y="3475.0">
+				<ECAction Output="AGripper.Grip"/>
+			</ECState>
+			<ECState Name="State_9" Comment="" x="6195.0" y="4065.0">
+				<ECAction Algorithm="RobotGoTo13" Output="ARobot.PresetPositionUpd"/>
+			</ECState>
+			<ECState Name="State_10" Comment="" x="6200.0" y="5400.0">
+				<ECAction Algorithm="RobotGoTo4" Output="ARobot.PresetPositionUpd"/>
+			</ECState>
+			<ECState Name="State_11" Comment="" x="8935.0" y="625.0">
+				<ECAction Output="AGripper.Grip"/>
+			</ECState>
+			<ECState Name="State_12" Comment="" x="9500.0" y="1500.0">
+				<ECAction Algorithm="RobotGoTo14" Output="ARobot.PresetPositionUpd"/>
+			</ECState>
+			<ECState Name="State_13" Comment="" x="9200.0" y="2900.0">
+				<ECAction Algorithm="RobotGoTo99" Output="ARobot.PresetPositionUpd"/>
+			</ECState>
+			<ECState Name="State" Comment="" x="2895.0" y="550.0">
+				<ECAction Output="AHandling.Ready"/>
+			</ECState>
+			<ECState Name="State_14" Comment="" x="2065.0" y="1055.0">
+				<ECAction Output="AGripper.Release"/>
+			</ECState>
+			<ECState Name="State_15" Comment="" x="2185.0" y="4455.0">
+				<ECAction Algorithm="RobotGoTo2" Output="ARobot.PresetPositionUpd"/>
+			</ECState>
+			<ECState Name="State_16" Comment="" x="6320.0" y="2275.0">
+				<ECAction Output="AGripper.Release"/>
+			</ECState>
+			<ECState Name="State_17" Comment="" x="6440.0" y="4745.0">
+				<ECAction Output="AGripper.Release"/>
+			</ECState>
+			<ECState Name="State_18" Comment="" x="10095.0" y="2335.0">
+				<ECAction Output="AGripper.Release"/>
+			</ECState>
+			<ECTransition Source="State_1" Destination="State_2" Condition="ARobot.PositionUpdate[ARobot.CurrentPosition = 1]" Comment="" x="2195.0" y="2055.0"/>
+			<ECTransition Source="State_2" Destination="State_3" Condition="AGripper.Gripped" Comment="" x="2155.0" y="2760.0"/>
+			<ECTransition Source="State_3" Destination="State_4" Condition="ARobot.PositionUpdate[ARobot.CurrentPosition = 11]" Comment="" x="2125.0" y="3445.0"/>
+			<ECTransition Source="State_5" Destination="State_6" Condition="AGripper.Gripped" Comment="" x="5755.0" y="1115.0"/>
+			<ECTransition Source="State_7" Destination="State_8" Condition="ARobot.PositionUpdate[ARobot.CurrentPosition = 3]" Comment="" x="6165.0" y="3315.0"/>
+			<ECTransition Source="State_8" Destination="State_9" Condition="AGripper.Gripped" Comment="" x="6305.0" y="3860.0"/>
+			<ECTransition Source="State_10" Destination="State_11" Condition="ARobot.PositionUpdate[ARobot.CurrentPosition = 4]" Comment="" x="8860.0" y="3960.0"/>
+			<ECTransition Source="State_11" Destination="State_12" Condition="AGripper.Gripped" Comment="" x="9660.0" y="1120.0"/>
+			<ECTransition Source="State_13" Destination="State" Condition="ARobot.PositionUpdate[ARobot.CurrentPosition = 99]" Comment="" x="6770.0" y="250.0"/>
+			<ECTransition Source="State" Destination="START" Condition="1" Comment="" x="1900.0" y="570.0"/>
+			<ECTransition Source="START" Destination="State_14" Condition="AHandling.PrepareSpinner" Comment="" x="910.0" y="790.0"/>
+			<ECTransition Source="State_14" Destination="State_1" Condition="AGripper.Released" Comment="" x="2200.0" y="1345.0"/>
+			<ECTransition Source="State_15" Destination="State_5" Condition="ARobot.PositionUpdate[ARobot.CurrentPosition = 2]" Comment="" x="4240.0" y="3310.0"/>
+			<ECTransition Source="State_4" Destination="State_15" Condition="AGripper.Released" Comment="" x="2290.0" y="4160.0"/>
+			<ECTransition Source="State_6" Destination="State_16" Condition="ARobot.PositionUpdate[ARobot.CurrentPosition = 12]" Comment="" x="6280.0" y="1980.0"/>
+			<ECTransition Source="State_16" Destination="State_7" Condition="AGripper.Released" Comment="" x="6285.0" y="2640.0"/>
+			<ECTransition Source="State_9" Destination="State_17" Condition="ARobot.PositionUpdate[ARobot.CurrentPosition = 13]" Comment="" x="6480.0" y="4430.0"/>
+			<ECTransition Source="State_17" Destination="State_10" Condition="AGripper.Released" Comment="" x="6540.0" y="5145.0"/>
+			<ECTransition Source="State_12" Destination="State_18" Condition="ARobot.PositionUpdate[ARobot.CurrentPosition = 14]" Comment="" x="10360.0" y="2000.0"/>
+			<ECTransition Source="State_18" Destination="State_13" Condition="AGripper.Released" Comment="" x="9895.0" y="2675.0"/>
+		</ECC>
+		<Algorithm Name="RobotGoTo1" Comment="New Algorithm">
+			<ST><![CDATA[ARobot.PresetPosition := 1;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo2" Comment="New Algorithm">
+			<ST><![CDATA[ARobot.PresetPosition := 2;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo3" Comment="New Algorithm">
+			<ST><![CDATA[ARobot.PresetPosition := 3;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo4" Comment="New Algorithm">
+			<ST><![CDATA[ARobot.PresetPosition := 4;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo11" Comment="New Algorithm">
+			<ST><![CDATA[ARobot.PresetPosition := 11;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo12" Comment="New Algorithm">
+			<ST><![CDATA[ARobot.PresetPosition := 12;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo13" Comment="New Algorithm">
+			<ST><![CDATA[ARobot.PresetPosition := 13;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo14" Comment="New Algorithm">
+			<ST><![CDATA[ARobot.PresetPosition := 14;]]></ST>
+		</Algorithm>
+		<Algorithm Name="RobotGoTo99" Comment="New Algorithm">
+			<ST><![CDATA[ARobot.PresetPosition := 99;]]></ST>
+		</Algorithm>
+	</BasicFB>
+</FBType>

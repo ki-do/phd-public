@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="IAS_Skill_MUX" Comment="Composite Function Block Type">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2019-07-03">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="cleanUp" Type="Event" Comment="Initialization Request">
+			</Event>
+			<Event Name="lock" Type="Event" Comment="Normal Execution Request">
+			</Event>
+			<Event Name="reset" Type="Event" Comment="">
+			</Event>
+			<Event Name="start" Type="Event" Comment="">
+			</Event>
+			<Event Name="stop" Type="Event" Comment="">
+			</Event>
+			<Event Name="suspend" Type="Event" Comment="">
+			</Event>
+			<Event Name="unsuspend" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="RSP" Type="Event" Comment="">
+				<With Var="currentState"/>
+				<With Var="lastTransition"/>
+			</Event>
+		</EventOutputs>
+		<OutputVars>
+			<VarDeclaration Name="currentState" Type="STRING" Comment=""/>
+			<VarDeclaration Name="lastTransition" Type="STRING" Comment=""/>
+		</OutputVars>
+		<Plugs>
+			<AdapterDeclaration Name="IAS_Skill" Type="IAS_Skill" Comment="" x="66.66666666666667" y="66.66666666666667"/>
+		</Plugs>
+	</InterfaceList>
+	<FBNetwork>
+		<EventConnections>
+			<Connection Source="cleanUp" Destination="IAS_Skill.cleanUp" Comment="" dx1="700.0"/>
+			<Connection Source="lock" Destination="IAS_Skill.lock" Comment="" dx1="700.0"/>
+			<Connection Source="reset" Destination="IAS_Skill.reset" Comment="" dx1="700.0"/>
+			<Connection Source="start" Destination="IAS_Skill.start" Comment="" dx1="700.0"/>
+			<Connection Source="stop" Destination="IAS_Skill.stop" Comment="" dx1="700.0"/>
+			<Connection Source="suspend" Destination="IAS_Skill.suspend" Comment="" dx1="700.0"/>
+			<Connection Source="unsuspend" Destination="IAS_Skill.unsuspend" Comment="" dx1="700.0"/>
+			<Connection Source="IAS_Skill.RSP" Destination="RSP" Comment="" dx1="1586.6666666666667"/>
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="IAS_Skill.currentState" Destination="currentState" Comment="" dx1="1586.6666666666667"/>
+			<Connection Source="IAS_Skill.lastTransition" Destination="lastTransition" Comment="" dx1="1586.6666666666667"/>
+		</DataConnections>
+	</FBNetwork>
+</FBType>

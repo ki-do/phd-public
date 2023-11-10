@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Comment="Generated orchestrator" Name="orchestratorFB">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="generator" Date="2020-10-07" Version="1.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Comment="Start whole process" Name="do" Type="Event"/>
+      <Event Comment="Whole process (round) counter was updated" Name="rndCntDone" Type="Event">
+        <With Var="rndCntIn"/>
+      </Event>
+      <Event Comment="Repetition counter was updated" Name="repCntDone" Type="Event">
+        <With Var="repCntIn"/>
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Comment="Update of the whole process (round) counter" Name="doRndCnt" Type="Event">
+        <With Var="rndCntOut"/>
+      </Event>
+      <Event Comment="Update of the repetition counter" Name="doRepCnt" Type="Event">
+        <With Var="repCntOut"/>
+      </Event>
+      <Event Comment="Triggered when an error signal was received (defined by adapter service sequence)" Name="errorDetected" Type="Event"/>
+      <Event Comment="Triggered when error handling and skill restart is started after error signal" Name="errorRestart" Type="Event"/>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Comment="Iteration number of the whole process (round)" Name="rndCntIn" Type="INT"/>
+      <VarDeclaration Comment="Iteration number of the current repetition process" Name="repCntIn" Type="INT"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Comment="Iteration number of the whole process (round)" Name="rndCntOut" Type="INT"/>
+      <VarDeclaration Comment="Iteration number of the current repetition process" Name="repCntOut" Type="INT"/>
+    </OutputVars>
+    <Plugs>
+      <AdapterDeclaration Comment="" Name="StorageSkill_IAS_Skill" Type="IAS_Skill"/>
+      <AdapterDeclaration Comment="" Name="TurnTableSetStartParams_SetParams1Word" Type="SetParams1Word"/>
+      <AdapterDeclaration Comment="" Name="TurntableSkill_IAS_Skill" Type="IAS_Skill"/>
+      <AdapterDeclaration Comment="" Name="RobotSetStartParams_SetParams1Word" Type="SetParams1Word"/>
+      <AdapterDeclaration Comment="" Name="RobotSkill_IAS_Skill" Type="IAS_Skill"/>
+      <AdapterDeclaration Comment="" Name="GripperSkill_IAS_Skill" Type="IAS_Skill"/>
+    </Plugs>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Comment="Initial State" Name="START" x="200.0" y="200.0"/>
+      <ECState Comment="If the adapter of a skill needs an initialization call" Name="Init" x="4000.0" y="200.0">
+        <ECAction Algorithm="round_cnt_reset" Output="doRndCnt"/>
+      </ECState>
+      <ECState Comment="Start of an iteration of the whole process" Name="Round_Start" x="200.0" y="1000.0"/>
+      <ECState Comment="End of an iteration of the whole process" Name="Round_End" x="4000.0" y="1000.0">
+        <ECAction Algorithm="round_cnt_inc" Output="doRndCnt"/>
+      </ECState>
+      <ECState Comment="" Name="0_StorageSkill_Start_0" x="200.0" y="1600.0">
+        <ECAction Output="StorageSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="1_StorageSkill_RSP_rec_0" x="200.0" y="2000.0"/>
+      <ECState Comment="" Name="3_StorageSkill_End_0" x="200.0" y="2400.0"/>
+      <ECState Comment="" Name="5_TurnTableSetStartParams_End_1" x="200.0" y="2800.0">
+        <ECAction Algorithm="4_TurnTableSetStartParams_Start_1_Alg0" Output="TurnTableSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="6_TurntableSkill_Start_2" x="200.0" y="3200.0">
+        <ECAction Output="TurntableSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="7_TurntableSkill_RSP_rec_2" x="200.0" y="3600.0"/>
+      <ECState Comment="" Name="9_TurntableSkill_End_2" x="200.0" y="4000.0"/>
+      <ECState Comment="" Name="10_StorageSkill_Start_3" x="200.0" y="4400.0">
+        <ECAction Output="StorageSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="11_StorageSkill_RSP_rec_3" x="200.0" y="4800.0"/>
+      <ECState Comment="" Name="13_StorageSkill_End_3" x="200.0" y="5200.0"/>
+      <ECState Comment="" Name="15_TurnTableSetStartParams_End_4" x="200.0" y="5600.0">
+        <ECAction Algorithm="14_TurnTableSetStartParams_Start_4_Alg1" Output="TurnTableSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="16_TurntableSkill_Start_5" x="200.0" y="6000.0">
+        <ECAction Output="TurntableSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="17_TurntableSkill_RSP_rec_5" x="200.0" y="6400.0"/>
+      <ECState Comment="" Name="19_TurntableSkill_End_5" x="200.0" y="6800.0"/>
+      <ECState Comment="" Name="21_RobotSetStartParams_End_6" x="200.0" y="7200.0">
+        <ECAction Algorithm="20_RobotSetStartParams_Start_6_Alg2" Output="RobotSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="22_RobotSkill_Start_7" x="200.0" y="7600.0">
+        <ECAction Output="RobotSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="23_RobotSkill_RSP_rec_7" x="200.0" y="8000.0"/>
+      <ECState Comment="" Name="25_RobotSkill_End_7" x="200.0" y="8400.0"/>
+      <ECState Comment="" Name="26_GripperSkill_Start_8" x="200.0" y="8800.0">
+        <ECAction Output="GripperSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="27_GripperSkill_RSP_rec_8" x="200.0" y="9200.0"/>
+      <ECState Comment="" Name="29_GripperSkill_End_8" x="200.0" y="9600.0"/>
+      <ECState Comment="" Name="31_RobotSetStartParams_End_9" x="200.0" y="10000.0">
+        <ECAction Algorithm="30_RobotSetStartParams_Start_9_Alg3" Output="RobotSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="32_RobotSkill_Start_10" x="200.0" y="10400.0">
+        <ECAction Output="RobotSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="33_RobotSkill_RSP_rec_10" x="200.0" y="10800.0"/>
+      <ECState Comment="" Name="35_RobotSkill_End_10" x="200.0" y="11200.0"/>
+      <ECState Comment="" Name="36_GripperSkill_Start_11" x="200.0" y="11600.0">
+        <ECAction Output="GripperSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="37_GripperSkill_RSP_rec_11" x="200.0" y="12000.0"/>
+      <ECState Comment="" Name="39_GripperSkill_End_11" x="200.0" y="12400.0"/>
+      <ECState Comment="" Name="41_RobotSetStartParams_End_12" x="200.0" y="12800.0">
+        <ECAction Algorithm="40_RobotSetStartParams_Start_12_Alg4" Output="RobotSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="42_RobotSkill_Start_13" x="200.0" y="13200.0">
+        <ECAction Output="RobotSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="43_RobotSkill_RSP_rec_13" x="200.0" y="13600.0"/>
+      <ECState Comment="" Name="45_RobotSkill_End_13" x="200.0" y="14000.0"/>
+      <ECState Comment="" Name="46_GripperSkill_Start_14" x="200.0" y="14400.0">
+        <ECAction Output="GripperSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="47_GripperSkill_RSP_rec_14" x="200.0" y="14800.0"/>
+      <ECState Comment="" Name="49_GripperSkill_End_14" x="200.0" y="15200.0"/>
+      <ECState Comment="" Name="51_RobotSetStartParams_End_15" x="200.0" y="15600.0">
+        <ECAction Algorithm="50_RobotSetStartParams_Start_15_Alg5" Output="RobotSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="52_RobotSkill_Start_16" x="200.0" y="16000.0">
+        <ECAction Output="RobotSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="53_RobotSkill_RSP_rec_16" x="200.0" y="16400.0"/>
+      <ECState Comment="" Name="55_RobotSkill_End_16" x="200.0" y="16800.0"/>
+      <ECState Comment="" Name="56_GripperSkill_Start_17" x="200.0" y="17200.0">
+        <ECAction Output="GripperSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="57_GripperSkill_RSP_rec_17" x="200.0" y="17600.0"/>
+      <ECState Comment="" Name="59_GripperSkill_End_17" x="200.0" y="18000.0"/>
+      <ECState Comment="" Name="61_RobotSetStartParams_End_18" x="200.0" y="18400.0">
+        <ECAction Algorithm="60_RobotSetStartParams_Start_18_Alg6" Output="RobotSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="62_RobotSkill_Start_19" x="200.0" y="18800.0">
+        <ECAction Output="RobotSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="63_RobotSkill_RSP_rec_19" x="200.0" y="19200.0"/>
+      <ECState Comment="" Name="65_RobotSkill_End_19" x="200.0" y="19600.0"/>
+      <ECState Comment="" Name="66_GripperSkill_Start_20" x="200.0" y="20000.0">
+        <ECAction Output="GripperSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="67_GripperSkill_RSP_rec_20" x="200.0" y="20400.0"/>
+      <ECState Comment="" Name="69_GripperSkill_End_20" x="200.0" y="20800.0"/>
+      <ECState Comment="" Name="71_RobotSetStartParams_End_21" x="200.0" y="21200.0">
+        <ECAction Algorithm="70_RobotSetStartParams_Start_21_Alg7" Output="RobotSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="72_RobotSkill_Start_22" x="200.0" y="21600.0">
+        <ECAction Output="RobotSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="73_RobotSkill_RSP_rec_22" x="200.0" y="22000.0"/>
+      <ECState Comment="" Name="75_RobotSkill_End_22" x="200.0" y="22400.0"/>
+      <ECState Comment="" Name="76_GripperSkill_Start_23" x="200.0" y="22800.0">
+        <ECAction Output="GripperSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="77_GripperSkill_RSP_rec_23" x="200.0" y="23200.0"/>
+      <ECState Comment="" Name="79_GripperSkill_End_23" x="200.0" y="23600.0"/>
+      <ECState Comment="" Name="81_RobotSetStartParams_End_24" x="200.0" y="24000.0">
+        <ECAction Algorithm="80_RobotSetStartParams_Start_24_Alg8" Output="RobotSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="82_RobotSkill_Start_25" x="200.0" y="24400.0">
+        <ECAction Output="RobotSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="83_RobotSkill_RSP_rec_25" x="200.0" y="24800.0"/>
+      <ECState Comment="" Name="85_RobotSkill_End_25" x="200.0" y="25200.0"/>
+      <ECState Comment="" Name="86_GripperSkill_Start_26" x="200.0" y="25600.0">
+        <ECAction Output="GripperSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="87_GripperSkill_RSP_rec_26" x="200.0" y="26000.0"/>
+      <ECState Comment="" Name="89_GripperSkill_End_26" x="200.0" y="26400.0"/>
+      <ECState Comment="" Name="91_RobotSetStartParams_End_27" x="200.0" y="26800.0">
+        <ECAction Algorithm="90_RobotSetStartParams_Start_27_Alg9" Output="RobotSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="92_RobotSkill_Start_28" x="200.0" y="27200.0">
+        <ECAction Output="RobotSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="93_RobotSkill_RSP_rec_28" x="200.0" y="27600.0"/>
+      <ECState Comment="" Name="95_RobotSkill_End_28" x="200.0" y="28000.0"/>
+      <ECState Comment="" Name="96_GripperSkill_Start_29" x="200.0" y="28400.0">
+        <ECAction Output="GripperSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="97_GripperSkill_RSP_rec_29" x="200.0" y="28800.0"/>
+      <ECState Comment="" Name="99_GripperSkill_End_29" x="200.0" y="29200.0"/>
+      <ECState Comment="" Name="101_RobotSetStartParams_End_30" x="200.0" y="29600.0">
+        <ECAction Algorithm="100_RobotSetStartParams_Start_30_Alg10" Output="RobotSetStartParams_SetParams1Word.IND"/>
+      </ECState>
+      <ECState Comment="" Name="102_RobotSkill_Start_31" x="200.0" y="30000.0">
+        <ECAction Output="RobotSkill_IAS_Skill.start"/>
+      </ECState>
+      <ECState Comment="" Name="103_RobotSkill_RSP_rec_31" x="200.0" y="30400.0"/>
+      <ECState Comment="" Name="105_RobotSkill_End_31" x="200.0" y="30800.0"/>
+      <ECTransition Comment="" Condition="do" Destination="Init" Source="START" x="2200.0" y="250.0"/>
+      <ECTransition Comment="" Condition="1" Destination="Round_Start" Source="Init" x="2200.0" y="700.0"/>
+      <ECTransition Comment="" Condition="do" Destination="Round_Start" Source="Round_End" x="2200.0" y="1050.0"/>
+      <ECTransition Comment="" Condition="1" Destination="0_StorageSkill_Start_0" Source="Round_Start" x="600.0" y="1350.0"/>
+      <ECTransition Comment="" Condition="1" Destination="Round_End" Source="105_RobotSkill_End_31" x="4000.0" y="10000.0"/>
+      <ECTransition Comment="" Condition="StorageSkill_IAS_Skill.RSP[StorageSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="1_StorageSkill_RSP_rec_0" Source="0_StorageSkill_Start_0" x="6000.0" y="2080.0"/>
+      <ECTransition Comment="" Condition="StorageSkill_IAS_Skill.RSP[StorageSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="3_StorageSkill_End_0" Source="1_StorageSkill_RSP_rec_0" x="6000.0" y="2360.0"/>
+      <ECTransition Comment="" Condition="1" Destination="5_TurnTableSetStartParams_End_1" Source="3_StorageSkill_End_0" x="6000.0" y="2640.0"/>
+      <ECTransition Comment="" Condition="1" Destination="6_TurntableSkill_Start_2" Source="5_TurnTableSetStartParams_End_1" x="6000.0" y="2920.0"/>
+      <ECTransition Comment="" Condition="TurntableSkill_IAS_Skill.RSP[TurntableSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="7_TurntableSkill_RSP_rec_2" Source="6_TurntableSkill_Start_2" x="6000.0" y="3200.0"/>
+      <ECTransition Comment="" Condition="TurntableSkill_IAS_Skill.RSP[TurntableSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="9_TurntableSkill_End_2" Source="7_TurntableSkill_RSP_rec_2" x="6000.0" y="3480.0"/>
+      <ECTransition Comment="" Condition="1" Destination="10_StorageSkill_Start_3" Source="9_TurntableSkill_End_2" x="6000.0" y="3760.0"/>
+      <ECTransition Comment="" Condition="StorageSkill_IAS_Skill.RSP[StorageSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="11_StorageSkill_RSP_rec_3" Source="10_StorageSkill_Start_3" x="6000.0" y="4040.0"/>
+      <ECTransition Comment="" Condition="StorageSkill_IAS_Skill.RSP[StorageSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="13_StorageSkill_End_3" Source="11_StorageSkill_RSP_rec_3" x="6000.0" y="4320.0"/>
+      <ECTransition Comment="" Condition="1" Destination="15_TurnTableSetStartParams_End_4" Source="13_StorageSkill_End_3" x="6000.0" y="4600.0"/>
+      <ECTransition Comment="" Condition="1" Destination="16_TurntableSkill_Start_5" Source="15_TurnTableSetStartParams_End_4" x="6000.0" y="4880.0"/>
+      <ECTransition Comment="" Condition="TurntableSkill_IAS_Skill.RSP[TurntableSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="17_TurntableSkill_RSP_rec_5" Source="16_TurntableSkill_Start_5" x="6000.0" y="5160.0"/>
+      <ECTransition Comment="" Condition="TurntableSkill_IAS_Skill.RSP[TurntableSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="19_TurntableSkill_End_5" Source="17_TurntableSkill_RSP_rec_5" x="6000.0" y="5440.0"/>
+      <ECTransition Comment="" Condition="1" Destination="21_RobotSetStartParams_End_6" Source="19_TurntableSkill_End_5" x="6000.0" y="5720.0"/>
+      <ECTransition Comment="" Condition="1" Destination="22_RobotSkill_Start_7" Source="21_RobotSetStartParams_End_6" x="6000.0" y="6000.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="23_RobotSkill_RSP_rec_7" Source="22_RobotSkill_Start_7" x="6000.0" y="6280.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="25_RobotSkill_End_7" Source="23_RobotSkill_RSP_rec_7" x="6000.0" y="6560.0"/>
+      <ECTransition Comment="" Condition="1" Destination="26_GripperSkill_Start_8" Source="25_RobotSkill_End_7" x="6000.0" y="6840.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="27_GripperSkill_RSP_rec_8" Source="26_GripperSkill_Start_8" x="6000.0" y="7120.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="29_GripperSkill_End_8" Source="27_GripperSkill_RSP_rec_8" x="6000.0" y="7400.0"/>
+      <ECTransition Comment="" Condition="1" Destination="31_RobotSetStartParams_End_9" Source="29_GripperSkill_End_8" x="6000.0" y="7680.0"/>
+      <ECTransition Comment="" Condition="1" Destination="32_RobotSkill_Start_10" Source="31_RobotSetStartParams_End_9" x="6000.0" y="7960.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="33_RobotSkill_RSP_rec_10" Source="32_RobotSkill_Start_10" x="6000.0" y="8240.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="35_RobotSkill_End_10" Source="33_RobotSkill_RSP_rec_10" x="6000.0" y="8520.0"/>
+      <ECTransition Comment="" Condition="1" Destination="36_GripperSkill_Start_11" Source="35_RobotSkill_End_10" x="6000.0" y="8800.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="37_GripperSkill_RSP_rec_11" Source="36_GripperSkill_Start_11" x="6000.0" y="9080.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="39_GripperSkill_End_11" Source="37_GripperSkill_RSP_rec_11" x="6000.0" y="9360.0"/>
+      <ECTransition Comment="" Condition="1" Destination="41_RobotSetStartParams_End_12" Source="39_GripperSkill_End_11" x="6000.0" y="9640.0"/>
+      <ECTransition Comment="" Condition="1" Destination="42_RobotSkill_Start_13" Source="41_RobotSetStartParams_End_12" x="6000.0" y="9920.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="43_RobotSkill_RSP_rec_13" Source="42_RobotSkill_Start_13" x="6000.0" y="10200.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="45_RobotSkill_End_13" Source="43_RobotSkill_RSP_rec_13" x="6000.0" y="10480.0"/>
+      <ECTransition Comment="" Condition="1" Destination="46_GripperSkill_Start_14" Source="45_RobotSkill_End_13" x="6000.0" y="10760.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="47_GripperSkill_RSP_rec_14" Source="46_GripperSkill_Start_14" x="6000.0" y="11040.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="49_GripperSkill_End_14" Source="47_GripperSkill_RSP_rec_14" x="6000.0" y="11320.0"/>
+      <ECTransition Comment="" Condition="1" Destination="51_RobotSetStartParams_End_15" Source="49_GripperSkill_End_14" x="6000.0" y="11600.0"/>
+      <ECTransition Comment="" Condition="1" Destination="52_RobotSkill_Start_16" Source="51_RobotSetStartParams_End_15" x="6000.0" y="11880.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="53_RobotSkill_RSP_rec_16" Source="52_RobotSkill_Start_16" x="6000.0" y="12160.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="55_RobotSkill_End_16" Source="53_RobotSkill_RSP_rec_16" x="6000.0" y="12440.0"/>
+      <ECTransition Comment="" Condition="1" Destination="56_GripperSkill_Start_17" Source="55_RobotSkill_End_16" x="6000.0" y="12720.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="57_GripperSkill_RSP_rec_17" Source="56_GripperSkill_Start_17" x="6000.0" y="13000.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="59_GripperSkill_End_17" Source="57_GripperSkill_RSP_rec_17" x="6000.0" y="13280.0"/>
+      <ECTransition Comment="" Condition="1" Destination="61_RobotSetStartParams_End_18" Source="59_GripperSkill_End_17" x="6000.0" y="13560.0"/>
+      <ECTransition Comment="" Condition="1" Destination="62_RobotSkill_Start_19" Source="61_RobotSetStartParams_End_18" x="6000.0" y="13840.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="63_RobotSkill_RSP_rec_19" Source="62_RobotSkill_Start_19" x="6000.0" y="14120.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="65_RobotSkill_End_19" Source="63_RobotSkill_RSP_rec_19" x="6000.0" y="14400.0"/>
+      <ECTransition Comment="" Condition="1" Destination="66_GripperSkill_Start_20" Source="65_RobotSkill_End_19" x="6000.0" y="14680.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="67_GripperSkill_RSP_rec_20" Source="66_GripperSkill_Start_20" x="6000.0" y="14960.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="69_GripperSkill_End_20" Source="67_GripperSkill_RSP_rec_20" x="6000.0" y="15240.0"/>
+      <ECTransition Comment="" Condition="1" Destination="71_RobotSetStartParams_End_21" Source="69_GripperSkill_End_20" x="6000.0" y="15520.0"/>
+      <ECTransition Comment="" Condition="1" Destination="72_RobotSkill_Start_22" Source="71_RobotSetStartParams_End_21" x="6000.0" y="15800.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="73_RobotSkill_RSP_rec_22" Source="72_RobotSkill_Start_22" x="6000.0" y="16080.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="75_RobotSkill_End_22" Source="73_RobotSkill_RSP_rec_22" x="6000.0" y="16360.0"/>
+      <ECTransition Comment="" Condition="1" Destination="76_GripperSkill_Start_23" Source="75_RobotSkill_End_22" x="6000.0" y="16640.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="77_GripperSkill_RSP_rec_23" Source="76_GripperSkill_Start_23" x="6000.0" y="16920.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="79_GripperSkill_End_23" Source="77_GripperSkill_RSP_rec_23" x="6000.0" y="17200.0"/>
+      <ECTransition Comment="" Condition="1" Destination="81_RobotSetStartParams_End_24" Source="79_GripperSkill_End_23" x="6000.0" y="17480.0"/>
+      <ECTransition Comment="" Condition="1" Destination="82_RobotSkill_Start_25" Source="81_RobotSetStartParams_End_24" x="6000.0" y="17760.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="83_RobotSkill_RSP_rec_25" Source="82_RobotSkill_Start_25" x="6000.0" y="18040.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="85_RobotSkill_End_25" Source="83_RobotSkill_RSP_rec_25" x="6000.0" y="18320.0"/>
+      <ECTransition Comment="" Condition="1" Destination="86_GripperSkill_Start_26" Source="85_RobotSkill_End_25" x="6000.0" y="18600.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="87_GripperSkill_RSP_rec_26" Source="86_GripperSkill_Start_26" x="6000.0" y="18880.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="89_GripperSkill_End_26" Source="87_GripperSkill_RSP_rec_26" x="6000.0" y="19160.0"/>
+      <ECTransition Comment="" Condition="1" Destination="91_RobotSetStartParams_End_27" Source="89_GripperSkill_End_26" x="6000.0" y="19440.0"/>
+      <ECTransition Comment="" Condition="1" Destination="92_RobotSkill_Start_28" Source="91_RobotSetStartParams_End_27" x="6000.0" y="19720.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="93_RobotSkill_RSP_rec_28" Source="92_RobotSkill_Start_28" x="6000.0" y="20000.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="95_RobotSkill_End_28" Source="93_RobotSkill_RSP_rec_28" x="6000.0" y="20280.0"/>
+      <ECTransition Comment="" Condition="1" Destination="96_GripperSkill_Start_29" Source="95_RobotSkill_End_28" x="6000.0" y="20560.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="97_GripperSkill_RSP_rec_29" Source="96_GripperSkill_Start_29" x="6000.0" y="20840.0"/>
+      <ECTransition Comment="" Condition="GripperSkill_IAS_Skill.RSP[GripperSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="99_GripperSkill_End_29" Source="97_GripperSkill_RSP_rec_29" x="6000.0" y="21120.0"/>
+      <ECTransition Comment="" Condition="1" Destination="101_RobotSetStartParams_End_30" Source="99_GripperSkill_End_29" x="6000.0" y="21400.0"/>
+      <ECTransition Comment="" Condition="1" Destination="102_RobotSkill_Start_31" Source="101_RobotSetStartParams_End_30" x="6000.0" y="21680.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Executing&quot;]" Destination="103_RobotSkill_RSP_rec_31" Source="102_RobotSkill_Start_31" x="6000.0" y="21960.0"/>
+      <ECTransition Comment="" Condition="RobotSkill_IAS_Skill.RSP[RobotSkill_IAS_Skill.currentState=&quot;Idle&quot;]" Destination="105_RobotSkill_End_31" Source="103_RobotSkill_RSP_rec_31" x="6000.0" y="22240.0"/>
+    </ECC>
+    <Algorithm Comment="Increments the round counter" Name="round_cnt_inc">
+      <ST>rndCntOut:=rndCntIn+1;</ST>
+    </Algorithm>
+    <Algorithm Comment="Resets the round counter" Name="round_cnt_reset">
+      <ST>rndCntOut:=0;</ST>
+    </Algorithm>
+    <Algorithm Comment="Increments the repetition counter" Name="rep_cnt_inc">
+      <ST>repCntOut:=repCntIn+1;</ST>
+    </Algorithm>
+    <Algorithm Comment="Resets the repetition counter" Name="rep_cnt_reset">
+      <ST>repCntOut:=0;</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="4_TurnTableSetStartParams_Start_1_Alg0">
+      <ST>TurnTableSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="14_TurnTableSetStartParams_Start_4_Alg1">
+      <ST>TurnTableSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="20_RobotSetStartParams_Start_6_Alg2">
+      <ST>RobotSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="30_RobotSetStartParams_Start_9_Alg3">
+      <ST>RobotSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="40_RobotSetStartParams_Start_12_Alg4">
+      <ST>RobotSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="50_RobotSetStartParams_Start_15_Alg5">
+      <ST>RobotSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="60_RobotSetStartParams_Start_18_Alg6">
+      <ST>RobotSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="70_RobotSetStartParams_Start_21_Alg7">
+      <ST>RobotSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="80_RobotSetStartParams_Start_24_Alg8">
+      <ST>RobotSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="90_RobotSetStartParams_Start_27_Alg9">
+      <ST>RobotSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+    <Algorithm Comment="" Name="100_RobotSetStartParams_Start_30_Alg10">
+      <ST>RobotSetStartParams_SetParams1Word.DATA:=1;
+</ST>
+    </Algorithm>
+  </BasicFB>
+</FBType>

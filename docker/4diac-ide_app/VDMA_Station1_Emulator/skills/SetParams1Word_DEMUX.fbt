@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="SetParams1Word_DEMUX" Comment="Composite FB wrapping other FBs">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2021-10-04">
+	</VersionInfo>
+	<InterfaceList>
+		<EventOutputs>
+			<Event Name="SetParams" Type="Event" Comment="Execution Confirmation">
+				<With Var="WORD"/>
+			</Event>
+		</EventOutputs>
+		<OutputVars>
+			<VarDeclaration Name="WORD" Type="WORD" Comment="Output event qualifier"/>
+		</OutputVars>
+		<Sockets>
+			<AdapterDeclaration Name="SetParams1Word" Type="SetParams1Word" Comment="" x="46.66666666666667" y="46.66666666666667"/>
+		</Sockets>
+	</InterfaceList>
+	<FBNetwork>
+		<EventConnections>
+			<Connection Source="SetParams1Word.IND" Destination="SetParams" Comment="" dx1="3700.0"/>
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="SetParams1Word.DATA" Destination="WORD" Comment="" dx1="3700.0"/>
+		</DataConnections>
+	</FBNetwork>
+</FBType>

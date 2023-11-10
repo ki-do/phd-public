@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="IX_Emulated" Comment="Composite FB wrapping other FBs">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2021-08-05">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Type="Event" Comment="Initialization Request">
+				<With Var="PARAMS"/>
+				<With Var="QI"/>
+				<With Var="PORT_NAME"/>
+			</Event>
+			<Event Name="REQ" Type="Event" Comment="Normal Execution Request">
+				<With Var="QI"/>
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Type="Event" Comment="Initialization Confirm">
+				<With Var="QO"/>
+				<With Var="STATUS"/>
+			</Event>
+			<Event Name="CNF" Type="Event" Comment="Execution Confirmation">
+				<With Var="QO"/>
+				<With Var="IN"/>
+				<With Var="STATUS"/>
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier"/>
+			<VarDeclaration Name="PARAMS" Type="STRING" Comment=""/>
+			<VarDeclaration Name="PORT_NAME" Type="WSTRING" Comment=""/>
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier"/>
+			<VarDeclaration Name="STATUS" Type="STRING" Comment=""/>
+			<VarDeclaration Name="IN" Type="BOOL" Comment=""/>
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="STRING2STRING" Type="STRING2STRING" Comment="" x="5166.666666666667" y="673.3333333333334">
+			<Parameter Name="IN" Value="OK"/>
+		</FB>
+		<FB Name="SUBSCRIBE_1" Type="SUBSCRIBE_1" Comment="" x="2600.0" y="1600.0">
+			<Parameter Name="QI" Value="1"/>
+		</FB>
+		<FB Name="F_STRING_TO_WSTRING" Type="F_STRING_TO_WSTRING" Comment="" x="1300.0" y="1900.0">
+		</FB>
+		<EventConnections>
+			<Connection Source="STRING2STRING.CNF" Destination="INITO" Comment="" dx1="1280.0"/>
+			<Connection Source="SUBSCRIBE_1.INITO" Destination="STRING2STRING.REQ" Comment="" dx1="1626.6666666666667"/>
+			<Connection Source="SUBSCRIBE_1.IND" Destination="CNF" Comment="" dx1="2606.666666666667"/>
+			<Connection Source="F_STRING_TO_WSTRING.CNF" Destination="SUBSCRIBE_1.INIT" Comment="" dx1="160.0"/>
+			<Connection Source="INIT" Destination="F_STRING_TO_WSTRING.REQ" Comment="" dx1="740.0"/>
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="STRING2STRING.OUT" Destination="STATUS" Comment="" dx1="1280.0"/>
+			<Connection Source="SUBSCRIBE_1.RD_1" Destination="IN" Comment="" dx1="2606.666666666667"/>
+			<Connection Source="QI" Destination="QO" Comment=""/>
+			<Connection Source="PARAMS" Destination="F_STRING_TO_WSTRING.IN" Comment="" dx1="486.6666666666667"/>
+			<Connection Source="F_STRING_TO_WSTRING.OUT" Destination="SUBSCRIBE_1.ID" Comment="" dx1="160.0"/>
+		</DataConnections>
+	</FBNetwork>
+</FBType>

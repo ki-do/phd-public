@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="ATURNTABLE_MUX" Comment="Composite FB wrapping other FBs">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Organization="4DIAC-Consortium" Version="0.0" Author="4DIAC-IDE" Date="2008-07-10">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="NewPosition" Type="Event" Comment="Confirmation from Plug">
+				<With Var="Position"/>
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="PositionUpd" Type="Event" Comment="Request from Socket">
+				<With Var="CurrentPosition"/>
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Position" Type="WORD" Comment="Confirmation Data from Plug"/>
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="CurrentPosition" Type="WORD" Comment="Request Data from Socket"/>
+		</OutputVars>
+		<Plugs>
+			<AdapterDeclaration Name="ATurntable" Type="ATurntable" Comment="" x="50.0" y="50.0"/>
+		</Plugs>
+	</InterfaceList>
+	<FBNetwork>
+		<EventConnections>
+			<Connection Source="NewPosition" Destination="ATurntable.NewPosition" Comment=""/>
+			<Connection Source="ATurntable.PositionUpd" Destination="PositionUpd" Comment=""/>
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="Position" Destination="ATurntable.Position" Comment=""/>
+			<Connection Source="ATurntable.CurrentPosition" Destination="CurrentPosition" Comment=""/>
+		</DataConnections>
+	</FBNetwork>
+</FBType>

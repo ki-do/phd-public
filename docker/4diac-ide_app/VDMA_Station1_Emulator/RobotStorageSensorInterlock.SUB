@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SubAppType Name="RobotStorageSensorInterlock" Comment="Subapplication Type">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="dorofeev" Date="2021-08-10">
+	</VersionInfo>
+	<SubAppInterfaceList>
+		<SubAppEventInputs>
+			<SubAppEvent Name="INIT" Type="Event" Comment="">
+			</SubAppEvent>
+			<SubAppEvent Name="REQ" Type="Event" Comment="">
+			</SubAppEvent>
+		</SubAppEventInputs>
+		<InputVars>
+			<VarDeclaration Name="RobotPosition" Type="ANY_ELEMENTARY" Comment=""/>
+			<VarDeclaration Name="PresetPosition" Type="WORD" Comment="" InitialValue="2"/>
+			<VarDeclaration Name="PositionSensor" Type="WSTRING" Comment="" InitialValue="225.0.0.5:60000"/>
+		</InputVars>
+	</SubAppInterfaceList>
+	<SubAppNetwork>
+		<FB Name="E_SWITCH" Type="E_SWITCH" Comment="" x="4300.0" y="1800.0">
+		</FB>
+		<FB Name="MagazinOut" Type="SUBSCRIBE_1" Comment="" x="793.3333333333334" y="3200.0">
+			<Parameter Name="QI" Value="1"/>
+			<Parameter Name="ID" Value="%Storage_StorageIsOut%"/>
+		</FB>
+		<FB Name="BOOL2BOOL" Type="BOOL2BOOL" Comment="" x="1800.0" y="2393.3333333333335">
+		</FB>
+		<FB Name="BOOL2BOOL_3" Type="BOOL2BOOL" Comment="" x="3760.0" y="3060.0">
+		</FB>
+		<FB Name="Gripper1Gripped" Type="SUBSCRIBE_1" Comment="" x="800.0" y="2100.0">
+			<Parameter Name="QI" Value="1"/>
+			<Parameter Name="ID" Value="%Gripper1_DoGrip%"/>
+		</FB>
+		<FB Name="BOOL2BOOL_1" Type="BOOL2BOOL" Comment="" x="5986.666666666667" y="2480.0">
+			<Parameter Name="IN" Value="FALSE"/>
+		</FB>
+		<FB Name="F_EQ" Type="F_EQ" Comment="" x="2120.0" y="1420.0">
+		</FB>
+		<FB Name="BOOL2BOOL_2" Type="BOOL2BOOL" Comment="" x="1846.6666666666667" y="3520.0">
+		</FB>
+		<FB Name="F_AND_1" Type="F_AND" Comment="" x="2846.666666666667" y="2966.666666666667">
+		</FB>
+		<FB Name="F_AND" Type="F_AND" Comment="" x="3400.0" y="1700.0">
+		</FB>
+		<FB Name="E_REND" Type="E_REND" Comment="" x="5946.666666666667" y="1566.6666666666667">
+		</FB>
+		<FB Name="PUBLISH_0" Type="PUBLISH_1" Comment="" x="7000.0" y="1400.0">
+			<Parameter Name="QI" Value="1"/>
+		</FB>
+		<FB Name="E_SR" Type="E_SR" Comment="" x="4040.0" y="386.6666666666667">
+		</FB>
+		<FB Name="E_SWITCH_1" Type="E_SWITCH" Comment="" x="2820.0" y="520.0">
+		</FB>
+		<FB Name="F_AND_2" Type="F_AND" Comment="" x="4840.0" y="486.6666666666667">
+		</FB>
+		<FB Name="E_SWITCH_2" Type="E_SWITCH" Comment="" x="5840.0" y="486.6666666666667">
+		</FB>
+		<FB Name="F_NOT" Type="F_NOT" Comment="" x="3440.0" y="986.6666666666667">
+		</FB>
+		<FB Name="BOOL2BOOL_4" Type="BOOL2BOOL" Comment="" x="4140.0" y="986.6666666666667">
+		</FB>
+		<FB Name="WORD2WORD" Type="WORD2WORD" Comment="" x="1000.0" y="800.0">
+		</FB>
+		<EventConnections>
+			<Connection Source="F_NOT.CNF" Destination="BOOL2BOOL_4.REQ" Comment=""/>
+			<Connection Source="F_EQ.CNF" Destination="E_SWITCH_1.EI" Comment="" dx1="160.0"/>
+			<Connection Source="Gripper1Gripped.INITO" Destination="PUBLISH_0.INIT" Comment="" dx1="2793.3333333333335"/>
+			<Connection Source="MagazinOut.IND" Destination="BOOL2BOOL_2.REQ" Comment="" dx1="220.0"/>
+			<Connection Source="E_SR.EO" Destination="F_AND_2.REQ" Comment="" dx1="246.66666666666669"/>
+			<Connection Source="E_SWITCH_1.EO1" Destination="E_SR.S" Comment="" dx1="320.0"/>
+			<Connection Source="F_AND.CNF" Destination="E_SWITCH.EI" Comment="" dx1="260.0"/>
+			<Connection Source="E_SWITCH.EO1" Destination="E_REND.EI2" Comment="" dx1="606.6666666666667"/>
+			<Connection Source="BOOL2BOOL_4.CNF" Destination="F_AND_2.REQ" Comment="" dx1="80.0" dx2="80.0" dy="-246.66666666666669"/>
+			<Connection Source="BOOL2BOOL.CNF" Destination="F_AND_1.REQ" Comment="" dx1="393.33333333333337"/>
+			<Connection Source="Gripper1Gripped.INITO" Destination="MagazinOut.INIT" Comment="" dx1="60.0" dx2="60.0" dy="546.6666666666667"/>
+			<Connection Source="Gripper1Gripped.IND" Destination="BOOL2BOOL.REQ" Comment="" dx1="193.33333333333334"/>
+			<Connection Source="F_EQ.CNF" Destination="F_AND.REQ" Comment="" dx1="406.6666666666667"/>
+			<Connection Source="BOOL2BOOL_1.CNF" Destination="PUBLISH_0.REQ" Comment="" dx1="240.0"/>
+			<Connection Source="E_REND.EO" Destination="BOOL2BOOL_1.REQ" Comment="" dx1="60.0" dx2="60.0" dy="240.0"/>
+			<Connection Source="F_AND_2.CNF" Destination="E_SWITCH_2.EI" Comment=""/>
+			<Connection Source="E_SWITCH_2.EO1" Destination="E_REND.EI1" Comment="" dx1="60.0" dx2="60.0" dy="486.6666666666667"/>
+			<Connection Source="BOOL2BOOL_3.CNF" Destination="F_AND.REQ" Comment="" dx1="60.0" dx2="60.0" dy="-680.0"/>
+			<Connection Source="E_SWITCH_2.EO1" Destination="E_SR.R" Comment="" dx1="60.0" dx2="60.0" dy="-640.0"/>
+			<Connection Source="F_AND_1.CNF" Destination="BOOL2BOOL_3.REQ" Comment="" dx1="86.66666666666667"/>
+			<Connection Source="E_REND.EO" Destination="E_REND.R" Comment="" dx1="60.0" dx2="60.0" dy="-213.33333333333334"/>
+			<Connection Source="BOOL2BOOL_2.CNF" Destination="F_AND_1.REQ" Comment="" dx1="346.6666666666667"/>
+			<Connection Source="F_EQ.CNF" Destination="F_NOT.REQ" Comment="" dx1="546.6666666666667"/>
+			<Connection Source="INIT" Destination="Gripper1Gripped.INIT" Comment="" dx1="80.0" dx2="80.0" dy="1106.6666666666667"/>
+			<Connection Source="REQ" Destination="WORD2WORD.REQ" Comment="" dx1="206.66666666666669"/>
+			<Connection Source="WORD2WORD.CNF" Destination="F_EQ.REQ" Comment="" dx1="300.0"/>
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="F_EQ.OUT" Destination="E_SWITCH_1.G" Comment="" dx1="160.0"/>
+			<Connection Source="BOOL2BOOL_2.OUT" Destination="F_AND_1.IN2" Comment="" dx1="346.6666666666667"/>
+			<Connection Source="BOOL2BOOL_4.OUT" Destination="F_AND_2.IN2" Comment="" dx1="80.0" dx2="80.0" dy="-200.0"/>
+			<Connection Source="E_SR.Q" Destination="F_AND_2.IN1" Comment=""/>
+			<Connection Source="F_EQ.OUT" Destination="F_NOT.IN" Comment="" dx1="546.6666666666667"/>
+			<Connection Source="BOOL2BOOL_1.OUT" Destination="PUBLISH_0.SD_1" Comment="" dx1="240.0"/>
+			<Connection Source="F_AND.OUT" Destination="E_SWITCH.G" Comment="" dx1="260.0"/>
+			<Connection Source="BOOL2BOOL.OUT" Destination="F_AND_1.IN1" Comment="" dx1="393.33333333333337"/>
+			<Connection Source="F_NOT.OUT" Destination="BOOL2BOOL_4.IN" Comment=""/>
+			<Connection Source="Gripper1Gripped.RD_1" Destination="BOOL2BOOL.IN" Comment="" dx1="193.33333333333334"/>
+			<Connection Source="BOOL2BOOL_3.OUT" Destination="F_AND.IN2" Comment="" dx1="60.0" dx2="60.0" dy="-626.6666666666667"/>
+			<Connection Source="F_EQ.OUT" Destination="F_AND.IN1" Comment="" dx1="406.6666666666667"/>
+			<Connection Source="F_AND_2.OUT" Destination="E_SWITCH_2.G" Comment="" dx1="313.33333333333337"/>
+			<Connection Source="MagazinOut.RD_1" Destination="BOOL2BOOL_2.IN" Comment="" dx1="220.0"/>
+			<Connection Source="F_AND_1.OUT" Destination="BOOL2BOOL_3.IN" Comment="" dx1="266.6666666666667"/>
+			<Connection Source="PositionSensor" Destination="PUBLISH_0.ID" Comment="" dx1="3160.0"/>
+			<Connection Source="WORD2WORD.OUT" Destination="F_EQ.IN1" Comment="" dx1="300.0"/>
+			<Connection Source="RobotPosition" Destination="WORD2WORD.IN" Comment="" dx1="206.66666666666669"/>
+			<Connection Source="PresetPosition" Destination="F_EQ.IN2" Comment="" dx1="720.0"/>
+		</DataConnections>
+	</SubAppNetwork>
+</SubAppType>

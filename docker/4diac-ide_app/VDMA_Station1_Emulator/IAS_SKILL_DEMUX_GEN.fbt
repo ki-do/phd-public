@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="IAS_SKILL_DEMUX_GEN" Comment="Composite Function Block Type">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Organization="4DIAC-Consortium" Version="0.0" Author="4DIAC-IDE" Date="2008-07-10">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="RSP" Type="Event" Comment="">
+				<With Var="currentState"/>
+				<With Var="lastTransition"/>
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="cleanUp" Type="Event" Comment="">
+			</Event>
+			<Event Name="lock" Type="Event" Comment="">
+			</Event>
+			<Event Name="reset" Type="Event" Comment="">
+			</Event>
+			<Event Name="start" Type="Event" Comment="">
+			</Event>
+			<Event Name="stop" Type="Event" Comment="">
+			</Event>
+			<Event Name="suspend" Type="Event" Comment="">
+			</Event>
+			<Event Name="unsuspend" Type="Event" Comment="">
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="currentState" Type="STRING" Comment=""/>
+			<VarDeclaration Name="lastTransition" Type="STRING" Comment=""/>
+		</InputVars>
+		<Sockets>
+			<AdapterDeclaration Name="IAS_Skill" Type="IAS_Skill" Comment="" x="62.5" y="62.5"/>
+		</Sockets>
+	</InterfaceList>
+	<FBNetwork>
+		<EventConnections>
+			<Connection Source="RSP" Destination="IAS_Skill.RSP" Comment=""/>
+			<Connection Source="IAS_Skill.cleanUp" Destination="cleanUp" Comment=""/>
+			<Connection Source="IAS_Skill.lock" Destination="lock" Comment=""/>
+			<Connection Source="IAS_Skill.reset" Destination="reset" Comment=""/>
+			<Connection Source="IAS_Skill.start" Destination="start" Comment=""/>
+			<Connection Source="IAS_Skill.stop" Destination="stop" Comment=""/>
+			<Connection Source="IAS_Skill.suspend" Destination="suspend" Comment=""/>
+			<Connection Source="IAS_Skill.unsuspend" Destination="unsuspend" Comment=""/>
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="currentState" Destination="IAS_Skill.currentState" Comment=""/>
+			<Connection Source="lastTransition" Destination="IAS_Skill.lastTransition" Comment=""/>
+		</DataConnections>
+	</FBNetwork>
+</FBType>

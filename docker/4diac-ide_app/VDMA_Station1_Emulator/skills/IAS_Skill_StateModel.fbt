@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="IAS_Skill_StateModel" Comment="Tamplate for a simple Basic Function Block Type">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Organization="4DIAC-Consortium" Version="0.0" Author="4DIAC-IDE" Date="2018-05-17">
+	</VersionInfo>
+	<VersionInfo Organization="fortiss GmbH" Version="1.0" Author="AZ" Date="2016-05-26">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Type="Event" Comment="">
+			</Event>
+			<Event Name="cleanUp" Type="Event" Comment="Initialization Request">
+			</Event>
+			<Event Name="lock" Type="Event" Comment="Normal Execution Request">
+			</Event>
+			<Event Name="reset" Type="Event" Comment="">
+			</Event>
+			<Event Name="start" Type="Event" Comment="">
+			</Event>
+			<Event Name="stop" Type="Event" Comment="">
+			</Event>
+			<Event Name="suspend" Type="Event" Comment="">
+			</Event>
+			<Event Name="unsuspend" Type="Event" Comment="">
+			</Event>
+			<Event Name="ErrorEvent" Type="Event" Comment="">
+			</Event>
+			<Event Name="StopEvent" Type="Event" Comment="">
+			</Event>
+			<Event Name="StartEvent" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Type="Event" Comment="">
+				<With Var="CurrentStatus"/>
+				<With Var="LastTransition"/>
+			</Event>
+			<Event Name="CNF" Type="Event" Comment="Execution Confirmation">
+				<With Var="CurrentStatus"/>
+				<With Var="LastTransition"/>
+			</Event>
+			<Event Name="cleanUpO" Type="Event" Comment="">
+			</Event>
+			<Event Name="lockO" Type="Event" Comment="">
+			</Event>
+			<Event Name="resetO" Type="Event" Comment="">
+			</Event>
+			<Event Name="startO" Type="Event" Comment="">
+			</Event>
+			<Event Name="stopO" Type="Event" Comment="">
+			</Event>
+			<Event Name="suspendO" Type="Event" Comment="">
+			</Event>
+			<Event Name="unsupendO" Type="Event" Comment="">
+			</Event>
+		</EventOutputs>
+		<OutputVars>
+			<VarDeclaration Name="CurrentStatus" Type="STRING" Comment="Output event qualifier"/>
+			<VarDeclaration Name="LastTransition" Type="STRING" Comment=""/>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="Start" Comment="Initial State" x="-685.0" y="-245.0">
+			</ECState>
+			<ECState Name="IdleFromExecuting" Comment="" x="800.0" y="-200.0">
+				<ECAction Algorithm="IdleState"/>
+				<ECAction Algorithm="ExecutingToIdle" Output="CNF"/>
+				<ECAction Output="stopO"/>
+			</ECState>
+			<ECState Name="ExecutingFromIdle" Comment="" x="2500.0" y="200.0">
+				<ECAction Algorithm="ExecutingState"/>
+				<ECAction Algorithm="IdleToExecuting" Output="CNF"/>
+				<ECAction Output="startO"/>
+			</ECState>
+			<ECState Name="Suspended" Comment="" x="2000.0" y="1800.0">
+				<ECAction Algorithm="SuspendedState"/>
+				<ECAction Algorithm="ExecutingToSuspend" Output="CNF"/>
+				<ECAction Output="suspendO"/>
+			</ECState>
+			<ECState Name="IdleFromSuspended" Comment="" x="1200.0" y="700.0">
+				<ECAction Algorithm="IdleState"/>
+				<ECAction Algorithm="SuspendedToIdle" Output="CNF"/>
+				<ECAction Output="cleanUpO"/>
+			</ECState>
+			<ECState Name="LockedFromExecuting" Comment="" x="4300.0" y="500.0">
+				<ECAction Algorithm="LockedState"/>
+				<ECAction Algorithm="ExecutingToLocked" Output="CNF"/>
+				<ECAction Output="lockO"/>
+			</ECState>
+			<ECState Name="LockedFromSuspended" Comment="" x="4600.0" y="1700.0">
+				<ECAction Algorithm="LockedState"/>
+				<ECAction Algorithm="SuspendedToLocked" Output="CNF"/>
+			</ECState>
+			<ECState Name="LockedFromIdle" Comment="" x="-500.0" y="600.0">
+				<ECAction Algorithm="LockedState"/>
+				<ECAction Algorithm="IdleToLocked" Output="CNF"/>
+				<ECAction Output="lockO"/>
+			</ECState>
+			<ECState Name="ExecutingFromSuspended" Comment="" x="2500.0" y="1200.0">
+				<ECAction Algorithm="ExecutingState"/>
+				<ECAction Algorithm="SuspendedToExecuting" Output="CNF"/>
+				<ECAction Output="unsupendO"/>
+			</ECState>
+			<ECState Name="IdleFromLocked" Comment="" x="600.0" y="1300.0">
+				<ECAction Algorithm="IdleState"/>
+				<ECAction Algorithm="LockedToIdle" Output="CNF"/>
+				<ECAction Output="resetO"/>
+			</ECState>
+			<ECState Name="LockedInitial" Comment="" x="100.0" y="-900.0">
+				<ECAction Algorithm="LockedState" Output="INITO"/>
+				<ECAction Algorithm="NoLastTransition" Output="CNF"/>
+			</ECState>
+			<ECState Name="LockedFromLocked" Comment="" x="1500.0" y="2900.0">
+				<ECAction Algorithm="LockedState"/>
+				<ECAction Algorithm="LockedToLocked" Output="CNF"/>
+			</ECState>
+			<ECState Name="ExecutingFromExecuting" Comment="" x="4080.0" y="-590.0">
+				<ECAction Algorithm="ExecutingState"/>
+				<ECAction Algorithm="ExecutingToExecuting" Output="CNF"/>
+			</ECState>
+			<ECState Name="State" Comment="" x="-1460.0" y="410.0">
+				<ECAction Output="INITO"/>
+			</ECState>
+			<ECTransition Source="ExecutingFromIdle" Destination="IdleFromExecuting" Condition="stop" Comment="" x="2200.0" y="285.0"/>
+			<ECTransition Source="ExecutingFromSuspended" Destination="IdleFromExecuting" Condition="stop" Comment="" x="1800.0" y="200.0"/>
+			<ECTransition Source="ExecutingFromIdle" Destination="LockedFromExecuting" Condition="ErrorEvent" Comment="" x="3810.0" y="-120.0"/>
+			<ECTransition Source="ExecutingFromSuspended" Destination="LockedFromExecuting" Condition="ErrorEvent" Comment="" x="4020.0" y="790.0"/>
+			<ECTransition Source="ExecutingFromSuspended" Destination="Suspended" Condition="suspend" Comment="" x="2400.0" y="1400.0"/>
+			<ECTransition Source="ExecutingFromIdle" Destination="Suspended" Condition="suspend" Comment="" x="2460.0" y="780.0"/>
+			<ECTransition Source="IdleFromExecuting" Destination="ExecutingFromIdle" Condition="start" Comment="" x="2780.0" y="-620.0"/>
+			<ECTransition Source="IdleFromSuspended" Destination="LockedFromIdle" Condition="lock" Comment="" x="980.0" y="140.0"/>
+			<ECTransition Source="IdleFromExecuting" Destination="LockedFromIdle" Condition="lock" Comment="" x="-220.0" y="80.0"/>
+			<ECTransition Source="IdleFromLocked" Destination="ExecutingFromIdle" Condition="start" Comment="" x="1380.0" y="1280.0"/>
+			<ECTransition Source="IdleFromLocked" Destination="LockedFromIdle" Condition="lock" Comment="" x="-160.0" y="1840.0"/>
+			<ECTransition Source="LockedFromSuspended" Destination="IdleFromLocked" Condition="reset" Comment="" x="810.0" y="2960.0"/>
+			<ECTransition Source="LockedFromExecuting" Destination="IdleFromLocked" Condition="reset" Comment="" x="2010.0" y="3200.0"/>
+			<ECTransition Source="Suspended" Destination="ExecutingFromSuspended" Condition="unsuspend" Comment="" x="2700.0" y="1600.0"/>
+			<ECTransition Source="Suspended" Destination="IdleFromSuspended" Condition="cleanUp" Comment="" x="1885.0" y="1450.0"/>
+			<ECTransition Source="Suspended" Destination="LockedFromSuspended" Condition="ErrorEvent" Comment="" x="3245.0" y="1500.0"/>
+			<ECTransition Source="IdleFromSuspended" Destination="ExecutingFromIdle" Condition="start" Comment="" x="1920.0" y="620.0"/>
+			<ECTransition Source="LockedFromIdle" Destination="LockedFromLocked" Condition="start" Comment="" x="-725.0" y="3070.0"/>
+			<ECTransition Source="LockedFromSuspended" Destination="LockedFromLocked" Condition="start" Comment="" x="4320.0" y="3065.0"/>
+			<ECTransition Source="LockedFromExecuting" Destination="LockedFromLocked" Condition="start" Comment="" x="3150.0" y="2525.0"/>
+			<ECTransition Source="LockedFromLocked" Destination="LockedFromLocked" Condition="start" Comment="" x="1870.0" y="3600.0"/>
+			<ECTransition Source="LockedFromLocked" Destination="IdleFromLocked" Condition="reset" Comment="" x="290.0" y="2580.0"/>
+			<ECTransition Source="ExecutingFromIdle" Destination="ExecutingFromExecuting" Condition="lock" Comment="" x="3605.0" y="-140.0"/>
+			<ECTransition Source="ExecutingFromSuspended" Destination="ExecutingFromExecuting" Condition="lock" Comment="" x="4960.0" y="60.0"/>
+			<ECTransition Source="ExecutingFromExecuting" Destination="IdleFromExecuting" Condition="stop" Comment="" x="1730.0" y="-640.0"/>
+			<ECTransition Source="ExecutingFromExecuting" Destination="LockedFromExecuting" Condition="ErrorEvent" Comment="" x="5910.0" y="180.0"/>
+			<ECTransition Source="ExecutingFromExecuting" Destination="Suspended" Condition="suspend" Comment="" x="3330.0" y="640.0"/>
+			<ECTransition Source="ExecutingFromExecuting" Destination="ExecutingFromExecuting" Condition="lock" Comment="" x="4470.0" y="-940.0"/>
+			<ECTransition Source="LockedInitial" Destination="IdleFromLocked" Condition="reset" Comment="" x="-1645.0" y="500.0"/>
+			<ECTransition Source="LockedInitial" Destination="LockedFromLocked" Condition="start" Comment="" x="-2140.0" y="4240.0"/>
+			<ECTransition Source="LockedFromIdle" Destination="IdleFromLocked" Condition="reset" Comment="" x="-980.0" y="2370.0"/>
+			<ECTransition Source="IdleFromSuspended" Destination="LockedFromIdle" Condition="ErrorEvent" Comment="" x="900.0" y="380.0"/>
+			<ECTransition Source="IdleFromExecuting" Destination="LockedFromIdle" Condition="ErrorEvent" Comment="" x="345.0" y="165.0"/>
+			<ECTransition Source="IdleFromLocked" Destination="LockedFromIdle" Condition="ErrorEvent" Comment="" x="410.0" y="1085.0"/>
+			<ECTransition Source="Suspended" Destination="IdleFromSuspended" Condition="StopEvent" Comment="" x="1390.0" y="1980.0"/>
+			<ECTransition Source="ExecutingFromSuspended" Destination="IdleFromExecuting" Condition="StopEvent" Comment="" x="1860.0" y="560.0"/>
+			<ECTransition Source="ExecutingFromIdle" Destination="IdleFromExecuting" Condition="StopEvent" Comment="" x="1890.0" y="60.0"/>
+			<ECTransition Source="ExecutingFromExecuting" Destination="IdleFromExecuting" Condition="StopEvent" Comment="" x="3130.0" y="-300.0"/>
+			<ECTransition Source="Start" Destination="State" Condition="INIT" Comment="" x="-1025.0" y="185.0"/>
+			<ECTransition Source="State" Destination="IdleFromLocked" Condition="1" Comment="" x="-1230.0" y="1110.0"/>
+			<ECTransition Source="LockedFromLocked" Destination="LockedFromLocked" Condition="StartEvent" Comment="" x="2065.0" y="3300.0"/>
+			<ECTransition Source="LockedInitial" Destination="LockedFromLocked" Condition="StartEvent" Comment="" x="-2740.0" y="3970.0"/>
+			<ECTransition Source="LockedFromIdle" Destination="LockedFromLocked" Condition="StartEvent" Comment="" x="-860.0" y="2830.0"/>
+			<ECTransition Source="LockedFromSuspended" Destination="LockedFromLocked" Condition="StartEvent" Comment="" x="4680.0" y="3390.0"/>
+			<ECTransition Source="LockedFromExecuting" Destination="LockedFromLocked" Condition="StartEvent" Comment="" x="4930.0" y="2760.0"/>
+			<ECTransition Source="IdleFromLocked" Destination="ExecutingFromIdle" Condition="StartEvent" Comment="" x="940.0" y="1120.0"/>
+			<ECTransition Source="IdleFromExecuting" Destination="ExecutingFromIdle" Condition="StartEvent" Comment="" x="2590.0" y="-145.0"/>
+			<ECTransition Source="IdleFromSuspended" Destination="ExecutingFromIdle" Condition="StartEvent" Comment="" x="2660.0" y="470.0"/>
+			<ECTransition Source="ExecutingFromIdle" Destination="ExecutingFromIdle" Condition="start" Comment="" x="3100.0" y="525.0"/>
+		</ECC>
+		<Algorithm Name="IdleState" Comment="Initialization algorithm">
+			<ST><![CDATA[CurrentStatus := "Idle";]]></ST>
+		</Algorithm>
+		<Algorithm Name="SuspendedState" Comment="Normally executed algorithm">
+			<ST><![CDATA[CurrentStatus := "Suspended";]]></ST>
+		</Algorithm>
+		<Algorithm Name="LockedState" Comment="new algorithm">
+			<ST><![CDATA[CurrentStatus := "Locked";
+]]></ST>
+		</Algorithm>
+		<Algorithm Name="ExecutingState" Comment="new algorithm">
+			<ST><![CDATA[CurrentStatus := "Executing";]]></ST>
+		</Algorithm>
+		<Algorithm Name="ExecutingToIdle" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "ExecutingToIdle";]]></ST>
+		</Algorithm>
+		<Algorithm Name="ExecutingToLocked" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "ExecutingToLocked";]]></ST>
+		</Algorithm>
+		<Algorithm Name="ExecutingToSuspend" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "ExecutingToSuspend";]]></ST>
+		</Algorithm>
+		<Algorithm Name="IdleToExecuting" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "IdleToExecuting";]]></ST>
+		</Algorithm>
+		<Algorithm Name="IdleToLocked" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "IdleToLocked";]]></ST>
+		</Algorithm>
+		<Algorithm Name="LockedToIdle" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "LockedToIdle";]]></ST>
+		</Algorithm>
+		<Algorithm Name="SuspendedToExecuting" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "SuspendedToExecuting";]]></ST>
+		</Algorithm>
+		<Algorithm Name="SuspendedToIdle" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "SuspendedToIdle";]]></ST>
+		</Algorithm>
+		<Algorithm Name="SuspendedToLocked" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "SuspendedToLocked";]]></ST>
+		</Algorithm>
+		<Algorithm Name="LockedToLocked" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "LockedToLocked";]]></ST>
+		</Algorithm>
+		<Algorithm Name="ExecutingToExecuting" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "ExecutingToExecuting";]]></ST>
+		</Algorithm>
+		<Algorithm Name="NoLastTransition" Comment="new algorithm">
+			<ST><![CDATA[LastTransition := "";]]></ST>
+		</Algorithm>
+	</BasicFB>
+</FBType>

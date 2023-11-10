@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="ASTORAGE_DEMUX" Comment="Composite FB wrapping other FBs">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Organization="4DIAC-Consortium" Version="0.0" Author="4DIAC-IDE" Date="2008-07-10">
+	</VersionInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="IsIn" Type="Event" Comment="Request from Socket">
+			</Event>
+			<Event Name="IsOut" Type="Event" Comment="Response from Socket">
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="GoIn" Type="Event" Comment="Confirmation from Plug">
+			</Event>
+			<Event Name="GoOut" Type="Event" Comment="">
+			</Event>
+		</EventOutputs>
+		<Sockets>
+			<AdapterDeclaration Name="AStorage" Type="AStorage" Comment="" x="2266.666666666667" y="266.6666666666667"/>
+		</Sockets>
+	</InterfaceList>
+	<FBNetwork>
+		<EventConnections>
+			<Connection Source="IsIn" Destination="AStorage.IsIn" Comment="" dx1="986.6666666666667"/>
+			<Connection Source="IsOut" Destination="AStorage.IsOut" Comment="" dx1="986.6666666666667"/>
+			<Connection Source="AStorage.GoIn" Destination="GoIn" Comment="" dx1="3946.666666666667"/>
+			<Connection Source="AStorage.GoOut" Destination="GoOut" Comment="" dx1="3946.666666666667"/>
+		</EventConnections>
+	</FBNetwork>
+</FBType>
